@@ -8,7 +8,8 @@ import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
 public class Main extends EngineFrame {
 
     // declaração de variáveis
-    
+    private int opcao;
+    private HoraDoRush jogo;
     
     // Construtor padrão do jogo
     public Main() {
@@ -33,6 +34,18 @@ public class Main extends EngineFrame {
      */
     @Override
     public void update( double delta ) {
+        
+        if( isKeyPressed( KEY_ONE ) ) {
+            jogo = new HoraDoRush( 1 );
+            this.setVisible( false );
+        } else if( isKeyPressed( KEY_TWO ) ) {
+            jogo = new HoraDoRush( 2 );
+            this.setVisible( false );
+        } else if( isKeyPressed( KEY_THREE ) ) {
+            jogo = new HoraDoRush( 3 );
+            this.setVisible( false );
+        }
+        
     }
 
     /**
@@ -40,6 +53,8 @@ public class Main extends EngineFrame {
      */
     @Override
     public void draw() {
+        String texto = "Escolha a dificuldade do jogo!";
+        drawText( texto, getScreenWidth()/2, getScreenHeight()/2, 20, BLACK);
     }
 
     public static void main( String[] args ) {

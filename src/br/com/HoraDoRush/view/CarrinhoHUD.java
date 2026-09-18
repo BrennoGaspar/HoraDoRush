@@ -1,8 +1,23 @@
 package br.com.HoraDoRush.view;
 
+import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
+import java.awt.Color;
+
 /**
  * @author Brenno Gaspar Pinto & Victor Altran Soares
  */
 public class CarrinhoHUD {
+    
+    // Construtor
+    public CarrinhoHUD() {}
+    
+    /**
+     * Método para desenhar a prateleira
+     */
+    public void desenhar( EngineFrame engine ) {
+        
+        engine.fillCircle( 200, 200, 100, Color.RED );
+        
+    }
     
 }
