@@ -1,0 +1,21 @@
+<component name="libraryTable">
+  <library name="JSGE-Latest">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/JSGE-Latest/tritonus-all-0.3.7.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/JSGE-Latest/jlayer-1.0.1.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/JSGE-Latest/jaudiotagger-2.2.7.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/JSGE-Latest/JSGE-v1.9.1-src.zip!/" />
+      <root url="jar://$PROJECT_DIR$/lib/JSGE-Latest/java-stream-player-10.0.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/JSGE-Latest/java-vorbis-support-1.2.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/JSGE-Latest/JSGE-v1.9.1-bin.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/JSGE-Latest/commons-io-2.17.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/JSGE-Latest/mp3spi-1.9.5.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/JSGE-Latest/sdl2gdx-1.0.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/JSGE-Latest/jorbis-0.0.17.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/JSGE-Latest/JSGE-v1.9.1-javadoc.zip!/" />
+      <root url="jar://$PROJECT_DIR$/lib/JSGE-Latest/jflac-codec-1.5.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
