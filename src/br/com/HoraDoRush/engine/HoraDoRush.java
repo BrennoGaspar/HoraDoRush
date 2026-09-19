@@ -1,5 +1,6 @@
 package br.com.HoraDoRush.engine;
 
+import br.com.HoraDoRush.input.DragAndDrop;
 import br.com.HoraDoRush.model.Carrinho;
 import br.com.HoraDoRush.model.ListaCompras;
 import br.com.HoraDoRush.model.Produtos;
@@ -26,6 +27,7 @@ public class HoraDoRush extends EngineFrame {
     private Produtos temp_produto;
     private int itensCorretos;
     private int faltamItens;
+    private DragAndDrop arrastar;
     
     // Construtor padrão do jogo
     public HoraDoRush( int dificuldade ) {
@@ -78,11 +80,11 @@ public class HoraDoRush extends EngineFrame {
         prateleiraHUD = new Prateleira();
         listaHUD = new ListaComprasHUD();
         carrinhoHUD = new CarrinhoHUD();
+        arrastar = new DragAndDrop();
         
         // Debug / teste
         // Cria objeto "Banana" e coloca em primeiro lugar da lista de compras
         temp_produto = new Produtos( 10, 10, 100, 100 );
-        System.out.println( "Produto criado: " + temp_produto.getNome() );
         
     }
 
@@ -98,6 +100,8 @@ public class HoraDoRush extends EngineFrame {
         if( tempoRestante > 0 ) {
             tempoRestante -= delta;
         }
+        
+        arrastar.arrastar( temp_produto, this );
         
         // Debug / teste
         // Comando para debug da quantidade de itens no carrinho

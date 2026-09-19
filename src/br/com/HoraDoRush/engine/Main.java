@@ -15,7 +15,7 @@ public class Main extends EngineFrame {
     public Main() {
 
         // cria a janela do jogo ou simulação
-        super( 1500, 950, "Hora do Rush", 60, true );
+        super( 1500, 950, "Hora do Rush - Menu", 60, true );
 
     }
 
@@ -57,8 +57,6 @@ public class Main extends EngineFrame {
         drawText( texto, getScreenWidth()/2, getScreenHeight()/2, 20, BLACK);
     }
 
-    public static void main( String[] args ) {
-        new Main();
-    }
+    public static void main( String[] args ) { new Main(); }
     
 }
