@@ -1,6 +1,8 @@
 package br.com.HoraDoRush.model;
 
 import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
+import br.com.davidbuzatto.jsge.image.Image;
+import br.com.davidbuzatto.jsge.image.ImageUtils;
 import java.awt.Color;
 import java.util.Random;
 
@@ -12,7 +14,7 @@ public class Produtos {
     // Atributos
     private String nome;
     private int posX, posY, largura, altura;
-    private Color cor;
+    private Image sprite;
     
     private String[] nomes = new String[]{
         "Banana",
@@ -28,6 +30,7 @@ public class Produtos {
         this.posY    = posY;
         this.largura = largura;
         this.altura  = altura;
+        
     }
     
     /**
@@ -35,9 +38,7 @@ public class Produtos {
      */
     private static int gerarNumero() {
         Random random = new Random();
-        int numeroGerado = random.nextInt() % 3;
-        if( numeroGerado < 0 ) numeroGerado *= -1;
-        return numeroGerado;
+        return random.nextInt( 3 );
     }
     
     // Getter
@@ -57,21 +58,26 @@ public class Produtos {
      */
     public void desenhar( EngineFrame engine ) {
         
-        cor = selecionarCor();
-        engine.fillRectangle( posX, posY, altura, largura, cor );
+        engine.drawImage( selecionarImage(), posX, posY );
         
     }
     
-    private Color selecionarCor() {
+    /**
+     * Método para renderizar a imagem de acordo com o produto gerado
+     */
+    private Image selecionarImage() {
         
-        if( nome == "Banana" ) {
-            return Color.YELLOW;
-        } else if( nome == "Maca" ) {
-            return Color.RED;
-        } else if( nome == "Pera" ) {
-            return Color.PINK;
+        if( nome.equals( "Banana" ) ) {
+            sprite = ImageUtils.loadImage( "src/br/com/HoraDoRush/model/assets/banana.png" );
+            return sprite;
+        } else if( nome.equals( "Maca" ) ) {
+            sprite = ImageUtils.loadImage( "src/br/com/HoraDoRush/model/assets/maca.png" );
+            return sprite;
+        } else if( nome.equals( "Pera" ) ) {
+            sprite = ImageUtils.loadImage( "src/br/com/HoraDoRush/model/assets/pera.png" );
+            return sprite;
         } else {
-            return Color.BLACK;
+            return null;
         }
         
     }
