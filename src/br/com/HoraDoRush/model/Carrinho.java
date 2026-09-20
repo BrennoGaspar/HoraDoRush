@@ -9,6 +9,7 @@ public class Carrinho {
     
     // Atributos
     private Stack<Produtos> pilha;
+    private int itensFaltando;
     
     // Construtor
     public Carrinho() {
@@ -18,6 +19,22 @@ public class Carrinho {
     // Getters
     public Stack<Produtos> getPilha() {
         return pilha;
+    }
+
+    public int getItensFaltando() {
+        return itensFaltando;
+    }
+    
+    // Setters
+    public void setItensFaltando(int itensFaltando) {
+        this.itensFaltando = itensFaltando;
+    }
+    
+    /**
+     * Método para realizar a adição do produto ao Carrinho
+     */
+    public void adicionarProduto( Produtos produto ) {
+        itensFaltando--;
     }
     
 }

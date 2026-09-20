@@ -1,9 +1,9 @@
 package br.com.HoraDoRush.model;
 
 import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
+import br.com.davidbuzatto.jsge.geom.Rectangle;
 import br.com.davidbuzatto.jsge.image.Image;
 import br.com.davidbuzatto.jsge.image.ImageUtils;
-import java.awt.Color;
 import java.util.Random;
 
 /**
@@ -83,7 +83,10 @@ public class Produtos {
      */
     public void desenhar( EngineFrame engine ) {
         
-        engine.drawImage( selecionarImage(), posX, posY );
+        selecionarImage();
+        Rectangle source = new Rectangle( 0, 0, sprite.getWidth(), sprite.getHeight() ); // qual a parte da imagem quer usar
+        Rectangle dest = new Rectangle( posX, posY, largura, altura ); // tamanho da hitbox (produto)
+        engine.drawImage( sprite, source, dest );
         
     }
     

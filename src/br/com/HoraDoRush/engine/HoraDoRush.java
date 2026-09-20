@@ -16,7 +16,6 @@ public class HoraDoRush extends EngineFrame {
 
     // declaração de variáveis
     private int tempoRestante;
-    private int dificuldade;
     private Carrinho carrinho;
     private ListaCompras listaCompras;
     private Prateleira prateleiraHUD;
@@ -26,7 +25,6 @@ public class HoraDoRush extends EngineFrame {
     // Debug / teste
     private Produtos temp_produto;
     private int itensCorretos;
-    private int faltamItens;
     private DragAndDrop arrastar;
     
     // Construtor padrão do jogo
@@ -35,22 +33,19 @@ public class HoraDoRush extends EngineFrame {
         // cria a janela do jogo ou simulação
         super( 1500, 950, obterTitulo(dificuldade), 60, true );
         
-        this.dificuldade = dificuldade;
-        
         if( dificuldade == 1 ) {
             tempoRestante = 5*3600; // 5 minutos
             listaCompras = new ListaCompras( 5 ); // a lista tem 5 itens
-            faltamItens = 5;
+            carrinho.setItensFaltando( 5 );
         } else if( dificuldade == 2 ) {
             tempoRestante = 4*3600; // 4 minutos
             listaCompras = new ListaCompras( 6 ); // a lista tem 6 itens
-            faltamItens = 6;
+            carrinho.setItensFaltando( 6 );
         } else if( dificuldade == 3 ) {
             tempoRestante = 3*3600; // 3 minutos
             listaCompras = new ListaCompras( 7 ); // a lista tem 7 itens
-            faltamItens = 7;
+            carrinho.setItensFaltando( 7 );
         }
-        carrinho = new Carrinho();        
 
     }
     
@@ -81,6 +76,7 @@ public class HoraDoRush extends EngineFrame {
         listaHUD = new ListaComprasHUD();
         carrinhoHUD = new CarrinhoHUD();
         arrastar = new DragAndDrop();
+        carrinho = new Carrinho(); 
         
         // Debug / teste
         // Cria objeto "Banana" e coloca em primeiro lugar da lista de compras
@@ -101,7 +97,7 @@ public class HoraDoRush extends EngineFrame {
             tempoRestante -= delta;
         }
         
-        arrastar.arrastar( temp_produto, this );
+        arrastar.arrastar( temp_produto, this, carrinhoHUD, carrinho );
         
         // Debug / teste
         // Comando para debug da quantidade de itens no carrinho
@@ -152,7 +148,7 @@ public class HoraDoRush extends EngineFrame {
         String listaLabel = String.format( "Itens na lista: %d", listaCompras.getTamanho() );;
         String temLabel = String.format( "Já tem: %d itens no carrinho", carrinho.getPilha().size() );
         String temCorretosLabel = String.format( "Já tem: %d itens corretos no carrinho", itensCorretos );
-        String faltamLabel = String.format( "Faltam: %d itens", faltamItens );
+        String faltamLabel = String.format( "Faltam: %d itens", carrinho.getItensFaltando() );
         
         // Debug / teste
         
