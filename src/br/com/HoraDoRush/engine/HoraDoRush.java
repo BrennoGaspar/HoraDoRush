@@ -21,9 +21,9 @@ public class HoraDoRush extends EngineFrame {
     private Prateleira prateleiraHUD;
     private ListaComprasHUD listaHUD;
     private CarrinhoHUD carrinhoHUD;
+    private Produtos[] produtosArray;
     
     // Debug / teste
-    private Produtos temp_produto;
     private int itensCorretos;
     private DragAndDrop arrastar;
     
@@ -78,9 +78,7 @@ public class HoraDoRush extends EngineFrame {
         arrastar = new DragAndDrop();
         carrinho = new Carrinho(); 
         
-        // Debug / teste
-        // Cria objeto "Banana" e coloca em primeiro lugar da lista de compras
-        temp_produto = new Produtos( 10, 10, 100, 100 );
+        gerarProdutos( 3 );
         
     }
 
@@ -97,32 +95,16 @@ public class HoraDoRush extends EngineFrame {
             tempoRestante -= delta;
         }
         
-        arrastar.arrastar( temp_produto, this, carrinhoHUD, carrinho );
-        
-        // Debug / teste
-        // Comando para debug da quantidade de itens no carrinho
-//        if( isKeyPressed(KEY_H) ) {
-//            carrinho.getPilha().add( temp_banana );
-//            Produtos t = listaCompras.getFila().peek();
-//            if( t.equals(temp_banana) ) {
-//                itensCorretos++;
-//                faltamItens--;
-//                System.out.println( "Item retirado da lista: " + listaCompras.getFila().poll().getNome() );
-//            } else {
-//                System.out.println( t.getNome() + " != " + temp_banana.getNome() );
-//            }
-//        }
-//        if( isKeyPressed(KEY_J) ) {
-//            carrinho.getPilha().add( temp_morango );
-//            Produtos t = listaCompras.getFila().peek();
-//            if( t.equals(temp_morango) ) {
-//                itensCorretos++;
-//                faltamItens--;
-//                System.out.println( "Item retirado da lista: " + listaCompras.getFila().poll().getNome() );
-//            } else {
-//                System.out.println( t.getNome() + " != " + temp_morango.getNome() );
-//            }
-//        }
+        for( Produtos p : produtosArray ) {
+            int inicioX = p.getPosX();
+            int inicioY = p.getPosY();
+            int fimX = p.getPosX() + p.getLargura();
+            int fimY = p.getPosY() + p.getAltura();
+            
+            if( getMouseX() >= inicioX && getMouseX() <= fimX && getMouseY() >= inicioY && getMouseY() <= fimY ) {
+                arrastar.arrastar( p, this, carrinhoHUD, carrinho, listaCompras );
+            }
+        }
         
     }
 
@@ -144,22 +126,32 @@ public class HoraDoRush extends EngineFrame {
         drawText( tempoLabel, getScreenWidth()/2, getScreenHeight()/2, 20, BLACK );
         
         // Debug / teste
-        
         String listaLabel = String.format( "Itens na lista: %d", listaCompras.getTamanho() );;
         String temLabel = String.format( "Já tem: %d itens no carrinho", carrinho.getPilha().size() );
         String temCorretosLabel = String.format( "Já tem: %d itens corretos no carrinho", itensCorretos );
         String faltamLabel = String.format( "Faltam: %d itens", carrinho.getItensFaltando() );
         
         // Debug / teste
-        
         drawText( listaLabel, getScreenWidth()/2, getScreenHeight()/2 + 40, 20, BLACK );
         drawText( temLabel, getScreenWidth()/2, getScreenHeight()/2 + 60, 20, BLACK );
         drawText( temCorretosLabel, getScreenWidth()/2, getScreenHeight()/2 + 80, 20, BLACK );
         drawText( faltamLabel, getScreenWidth()/2, getScreenHeight()/2 + 100, 20, BLACK );
 
-        
-        temp_produto.desenhar( this );
-    
+        for( Produtos p : produtosArray ) {
+            p.desenhar( this );
+        }
+            
     }
+    
+    private void gerarProdutos( int numero ) {
+        
+            produtosArray = new Produtos[numero];
+
+            for( int i = 0; i < numero; i++ ) {
+                produtosArray[i] = new Produtos( 10 + 100*i, 10 + 100*i, 100, 100 );
+            }
+
+        }
+
     
 }

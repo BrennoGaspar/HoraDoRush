@@ -1,6 +1,7 @@
 package br.com.HoraDoRush.input;
 
 import br.com.HoraDoRush.model.Carrinho;
+import br.com.HoraDoRush.model.ListaCompras;
 import br.com.HoraDoRush.model.Produtos;
 import br.com.HoraDoRush.view.CarrinhoHUD;
 import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
@@ -18,7 +19,7 @@ public class DragAndDrop {
     // Construtor
     public DragAndDrop() {}
     
-    public void arrastar( Produtos produto, EngineFrame engine, CarrinhoHUD carrinhoHUD, Carrinho carrinho ) {
+    public void arrastar( Produtos produto, EngineFrame engine, CarrinhoHUD carrinhoHUD, Carrinho carrinho, ListaCompras lista ) {
         
         int mouseX = engine.getMouseX();
         int mouseY = engine.getMouseY();
@@ -73,7 +74,7 @@ public class DragAndDrop {
 
                 if( fimX >= carrinhoHUD.getPosX() && fimX <= fimCarrinhoX ){
                     if( fimY >= carrinhoHUD.getPosY() && fimY <= fimCarrinhoY ) {
-                        carrinho.adicionarProduto( produto );
+                        carrinho.adicionarProduto( produto, lista );
                     }
                 }
             }

@@ -33,7 +33,7 @@ public class Carrinho {
     /**
      * Método para realizar a adição do produto ao Carrinho
      */
-    public void adicionarProduto( Produtos produto ) {
+    public void adicionarProduto( Produtos produto, ListaCompras lista ) {
         itensFaltando--;
     }
     
