@@ -1,6 +1,7 @@
 package br.com.HoraDoRush.model;
 
 import java.util.Queue;
+import java.util.Random;
 import java.util.concurrent.ArrayBlockingQueue;
 
 /**
@@ -25,6 +26,17 @@ public class ListaCompras {
 
     public Queue<Produtos> getFila() {
         return fila;
+    }
+    
+    /**
+     * Método para criar a lista de itens a partir dos produtos
+     */
+    public void gerarLista( Produtos[] produtos ){
+        
+        Random random = new Random();
+        int n = random.nextInt( tamanho );
+        fila.add( produtos[n] );
+        
     }
     
 }

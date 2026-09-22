@@ -31,13 +31,9 @@ public class DragAndDrop {
         int fimY = produto.getPosY() + produto.getAltura();
             
         if( segurando && !isArrastando ) {
-            
-            if( mouseX >= inicioX && mouseX <= fimX && mouseY >= inicioY && mouseY <= fimY ) {
-                isArrastando = true;
-                diferencaX = mouseX - inicioX;
-                diferencaY = mouseY - inicioY;
-            }
-            
+            isArrastando = true;
+            diferencaX = mouseX - inicioX;
+            diferencaY = mouseY - inicioY; 
         }
         
         if( isArrastando ) {

@@ -35,17 +35,19 @@ public class HoraDoRush extends EngineFrame {
         
         if( dificuldade == 1 ) {
             tempoRestante = 5*3600; // 5 minutos
-            listaCompras = new ListaCompras( 5 ); // a lista tem 5 itens
-            carrinho.setItensFaltando( 5 );
+            listaCompras = new ListaCompras( 1 );
+            carrinho.setItensFaltando( 1 );
         } else if( dificuldade == 2 ) {
             tempoRestante = 4*3600; // 4 minutos
-            listaCompras = new ListaCompras( 6 ); // a lista tem 6 itens
-            carrinho.setItensFaltando( 6 );
+            listaCompras = new ListaCompras( 2 );
+            carrinho.setItensFaltando( 2 );
         } else if( dificuldade == 3 ) {
             tempoRestante = 3*3600; // 3 minutos
-            listaCompras = new ListaCompras( 7 ); // a lista tem 7 itens
-            carrinho.setItensFaltando( 7 );
+            listaCompras = new ListaCompras( 3 );
+            carrinho.setItensFaltando( 3 );
         }
+        
+        listaCompras.gerarLista( produtosArray );
 
     }
     
@@ -76,7 +78,7 @@ public class HoraDoRush extends EngineFrame {
         listaHUD = new ListaComprasHUD();
         carrinhoHUD = new CarrinhoHUD();
         arrastar = new DragAndDrop();
-        carrinho = new Carrinho(); 
+        carrinho = new Carrinho();
         
         gerarProdutos( 3 );
         
