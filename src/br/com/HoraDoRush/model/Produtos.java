@@ -16,10 +16,12 @@ public class Produtos {
     private int posX, posY, largura, altura;
     private Image sprite;
     
-    private String[] nomes = new String[]{
+    private static String[] nomes = new String[]{
         "Banana",
         "Maca",
         "Pera",
+        "Morango",
+        "Abacate",
     };
     
     // Construtor
@@ -38,7 +40,7 @@ public class Produtos {
      */
     private static int gerarNumero() {
         Random random = new Random();
-        return random.nextInt( 3 );
+        return random.nextInt( nomes.length );
     }
     
     // Getter
@@ -103,6 +105,12 @@ public class Produtos {
             return sprite;
         } else if( nome.equals( "Pera" ) ) {
             sprite = ImageUtils.loadImage( "src/br/com/HoraDoRush/model/assets/pera.png" );
+            return sprite;
+        } else if( nome.equals( "Morango" ) ) {
+            sprite = ImageUtils.loadImage( "src/br/com/HoraDoRush/model/assets/morango.png" );
+            return sprite;
+        } else if( nome.equals( "Abacate" ) ) {
+            sprite = ImageUtils.loadImage( "src/br/com/HoraDoRush/model/assets/abacate.png" );
             return sprite;
         } else {
             return null;

@@ -35,14 +35,17 @@ public class HoraDoRush extends EngineFrame {
         
         if( dificuldade == 1 ) {
             tempoRestante = 5*3600; // 5 minutos
+            gerarProdutos( 3 );
             listaCompras = new ListaCompras( 1 );
             carrinho.setItensFaltando( 1 );
         } else if( dificuldade == 2 ) {
             tempoRestante = 4*3600; // 4 minutos
+            gerarProdutos( 4 );
             listaCompras = new ListaCompras( 2 );
             carrinho.setItensFaltando( 2 );
         } else if( dificuldade == 3 ) {
             tempoRestante = 3*3600; // 3 minutos
+            gerarProdutos( 5 );
             listaCompras = new ListaCompras( 3 );
             carrinho.setItensFaltando( 3 );
         }
@@ -79,8 +82,7 @@ public class HoraDoRush extends EngineFrame {
         carrinhoHUD = new CarrinhoHUD();
         arrastar = new DragAndDrop();
         carrinho = new Carrinho();
-        
-        gerarProdutos( 3 );
+        produtosArray = new Produtos[0];
         
     }
 
@@ -102,7 +104,7 @@ public class HoraDoRush extends EngineFrame {
             int inicioY = p.getPosY();
             int fimX = p.getPosX() + p.getLargura();
             int fimY = p.getPosY() + p.getAltura();
-            
+
             if( getMouseX() >= inicioX && getMouseX() <= fimX && getMouseY() >= inicioY && getMouseY() <= fimY ) {
                 arrastar.arrastar( p, this, carrinhoHUD, carrinho, listaCompras );
             }
@@ -146,14 +148,11 @@ public class HoraDoRush extends EngineFrame {
     }
     
     private void gerarProdutos( int numero ) {
-        
-            produtosArray = new Produtos[numero];
-
-            for( int i = 0; i < numero; i++ ) {
-                produtosArray[i] = new Produtos( 10 + 100*i, 10 + 100*i, 100, 100 );
-            }
-
+        produtosArray = new Produtos[numero];
+        for( int i = 0; i < numero; i++ ) {
+            produtosArray[i] = new Produtos( 10 + 100*i, 10 + 100*i, 100, 100 );
         }
+    }
 
     
 }

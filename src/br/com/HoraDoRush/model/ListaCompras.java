@@ -1,5 +1,6 @@
 package br.com.HoraDoRush.model;
 
+import java.util.ArrayList;
 import java.util.Queue;
 import java.util.Random;
 import java.util.concurrent.ArrayBlockingQueue;
@@ -33,9 +34,19 @@ public class ListaCompras {
      */
     public void gerarLista( Produtos[] produtos ){
         
-        Random random = new Random();
-        int n = random.nextInt( tamanho );
-        fila.add( produtos[n] );
+        ArrayList<Integer> numerosEscolhidos = new ArrayList<>();
+                
+        for( int i = 0; i < tamanho; i++ ) {
+            Random random = new Random();
+            int n = random.nextInt( produtos.length );
+            
+            while( numerosEscolhidos.contains(n) ) {
+                n = random.nextInt( produtos.length );
+            }
+            
+            fila.add( produtos[n] );
+            numerosEscolhidos.add( n );
+        }
         
     }
     
