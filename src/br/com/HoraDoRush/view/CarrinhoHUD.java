@@ -9,8 +9,8 @@ import java.awt.Color;
 public class CarrinhoHUD {
     
     // Atributos
-    private int posX = 500;
-    private int posY = 500;
+    private int posX = 400;
+    private int posY = 400;
     private int largura = 200;
     private int altura = 200;
     

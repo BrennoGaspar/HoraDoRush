@@ -51,6 +51,7 @@ public class HoraDoRush extends EngineFrame {
         }
         
         listaCompras.gerarLista( produtosArray );
+        listaHUD = new ListaComprasHUD( listaCompras );
 
     }
     
@@ -78,7 +79,6 @@ public class HoraDoRush extends EngineFrame {
     public void create() {
         
         prateleiraHUD = new Prateleira();
-        listaHUD = new ListaComprasHUD();
         carrinhoHUD = new CarrinhoHUD();
         arrastar = new DragAndDrop();
         carrinho = new Carrinho();
@@ -127,7 +127,7 @@ public class HoraDoRush extends EngineFrame {
         int minutos = tempoRestante / 3600;
         int segundos = (tempoRestante % 3600) / 60;
         String tempoLabel = String.format( "Tempo restante: %02d:%02d", minutos, segundos );
-        drawText( tempoLabel, getScreenWidth()/2, getScreenHeight()/2, 20, BLACK );
+        drawText( tempoLabel, getScreenWidth()/2 - 50, getScreenHeight()/2, 20, BLACK );
         
         // Debug / teste
         String listaLabel = String.format( "Itens na lista: %d", listaCompras.getTamanho() );;
@@ -136,10 +136,10 @@ public class HoraDoRush extends EngineFrame {
         String faltamLabel = String.format( "Faltam: %d itens", carrinho.getItensFaltando() );
         
         // Debug / teste
-        drawText( listaLabel, getScreenWidth()/2, getScreenHeight()/2 + 40, 20, BLACK );
-        drawText( temLabel, getScreenWidth()/2, getScreenHeight()/2 + 60, 20, BLACK );
-        drawText( temCorretosLabel, getScreenWidth()/2, getScreenHeight()/2 + 80, 20, BLACK );
-        drawText( faltamLabel, getScreenWidth()/2, getScreenHeight()/2 + 100, 20, BLACK );
+        drawText( listaLabel, getScreenWidth()/2 - 50, getScreenHeight()/2 + 40, 20, BLACK );
+        drawText( temLabel, getScreenWidth()/2 - 50, getScreenHeight()/2 + 60, 20, BLACK );
+        drawText( temCorretosLabel, getScreenWidth()/2 - 50, getScreenHeight()/2 + 80, 20, BLACK );
+        drawText( faltamLabel, getScreenWidth()/2 - 50, getScreenHeight()/2 + 100, 20, BLACK );
 
         for( Produtos p : produtosArray ) {
             p.desenhar( this );

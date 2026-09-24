@@ -1,5 +1,6 @@
 package br.com.HoraDoRush.model;
 
+import br.com.HoraDoRush.view.CarrinhoHUD;
 import java.util.Stack;
 
 /**
@@ -35,7 +36,16 @@ public class Carrinho {
      */
     public void adicionarProduto( Produtos produto, ListaCompras lista ) {
         
-        itensFaltando--;
+        Produtos primeiroLista = lista.getFila().peek();
+        
+        if( produto.equals(primeiroLista) ){
+            lista.getFila().poll();
+            lista.setTamanho( --itensFaltando );
+        } else {
+            System.out.printf( "\nPrimeiro produto incorreto, voce adicionou %s - o correto seria %s\n", produto.getNome(), lista.getFila().peek().getNome() );
+        }
+        
+        pilha.add( produto );
         
     }
     

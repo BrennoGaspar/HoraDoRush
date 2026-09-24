@@ -29,6 +29,11 @@ public class ListaCompras {
         return fila;
     }
     
+    // Setters
+    public void setTamanho(int tamanho) {
+        this.tamanho = tamanho;
+    }
+    
     /**
      * Método para criar a lista de itens a partir dos produtos
      */
