@@ -29,7 +29,7 @@ public class DragAndDrop {
         int inicioY = produto.getPosY();
         int fimX = produto.getPosX() + produto.getLargura();
         int fimY = produto.getPosY() + produto.getAltura();
-            
+        
         if( segurando && !isArrastando ) {
             isArrastando = true;
             diferencaX = mouseX - inicioX;
@@ -63,19 +63,28 @@ public class DragAndDrop {
             
         }
         
-        if( !isArrastando ) {
+        int fimCarrinhoX = carrinhoHUD.getPosX() + carrinhoHUD.getLargura();
+        int fimCarrinhoY = carrinhoHUD.getPosY() + carrinhoHUD.getAltura();
+        
+        if( !isArrastando && !produto.isEstaCarrinho() ) {
             if( controlador == 1 ) {
-                int fimCarrinhoX = carrinhoHUD.getPosX() + carrinhoHUD.getLargura();
-                int fimCarrinhoY = carrinhoHUD.getPosY() + carrinhoHUD.getAltura();
-
                 if( fimX >= carrinhoHUD.getPosX() && fimX <= fimCarrinhoX ){
                     if( fimY >= carrinhoHUD.getPosY() && fimY <= fimCarrinhoY ) {
                         carrinho.adicionarProduto( produto, lista );
+                        produto.alterarEstaCarrinho(); // altera a variavel para true
                     }
                 }
             }
             controlador = 0;
-            
+        } else if( !isArrastando && produto.isEstaCarrinho() ) {
+            if( controlador == 1 ) {
+                if( fimX < carrinhoHUD.getPosX() || fimX > fimCarrinhoX ){
+                    if( fimY < carrinhoHUD.getPosY() || fimY > fimCarrinhoY ) {
+                        carrinho.removerProduto();
+                        produto.alterarEstaCarrinho(); // altera a variavel para false
+                    }
+                }
+            }
         }
         
     }

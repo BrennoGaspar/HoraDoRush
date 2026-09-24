@@ -15,6 +15,7 @@ public class Produtos {
     private String nome;
     private int posX, posY, largura, altura;
     private Image sprite;
+    private boolean estaCarrinho;
     
     private static String[] nomes = new String[]{
         "Banana",
@@ -32,6 +33,7 @@ public class Produtos {
         this.posY    = posY;
         this.largura = largura;
         this.altura  = altura;
+        this.estaCarrinho = false;
         
     }
     
@@ -63,6 +65,10 @@ public class Produtos {
     public int getAltura() {
         return altura;
     }
+
+    public boolean isEstaCarrinho() {
+        return estaCarrinho;
+    }
     
     // Setters
     public void setPosX(int posX) {
@@ -72,6 +78,10 @@ public class Produtos {
     public void setPosY(int posY) {
         this.posY = posY;
     }
+
+    public void alterarEstaCarrinho() {
+        this.estaCarrinho = !estaCarrinho;
+    }    
     
     // Verificar se dois produtos são iguais
     @Override

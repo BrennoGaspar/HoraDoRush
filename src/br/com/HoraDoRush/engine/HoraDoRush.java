@@ -131,15 +131,13 @@ public class HoraDoRush extends EngineFrame {
         
         // Debug / teste
         String listaLabel = String.format( "Itens na lista: %d", listaCompras.getTamanho() );;
-        String temLabel = String.format( "Já tem: %d itens no carrinho", carrinho.getPilha().size() );
-        String temCorretosLabel = String.format( "Já tem: %d itens corretos no carrinho", itensCorretos );
-        String faltamLabel = String.format( "Faltam: %d itens", carrinho.getItensFaltando() );
+        String temLabel = String.format( "Já tem: %d itens no carrinho", carrinho.verificarItensNoCarrinho() );
+        String faltamLabel = String.format( "Faltam: %d itens corretos no carrinho", carrinho.getItensFaltando() );
         
         // Debug / teste
         drawText( listaLabel, getScreenWidth()/2 - 50, getScreenHeight()/2 + 40, 20, BLACK );
         drawText( temLabel, getScreenWidth()/2 - 50, getScreenHeight()/2 + 60, 20, BLACK );
-        drawText( temCorretosLabel, getScreenWidth()/2 - 50, getScreenHeight()/2 + 80, 20, BLACK );
-        drawText( faltamLabel, getScreenWidth()/2 - 50, getScreenHeight()/2 + 100, 20, BLACK );
+        drawText( faltamLabel, getScreenWidth()/2 - 50, getScreenHeight()/2 + 80, 20, BLACK );
 
         for( Produtos p : produtosArray ) {
             p.desenhar( this );
@@ -153,6 +151,5 @@ public class HoraDoRush extends EngineFrame {
             produtosArray[i] = new Produtos( 10 + 100*i, 10 + 100*i, 100, 100 );
         }
     }
-
     
 }
