@@ -106,7 +106,7 @@ public class HoraDoRush extends EngineFrame {
             int fimY = p.getPosY() + p.getAltura();
 
             if( getMouseX() >= inicioX && getMouseX() <= fimX && getMouseY() >= inicioY && getMouseY() <= fimY ) {
-                arrastar.arrastar( p, this, carrinhoHUD, carrinho, listaCompras );
+                arrastar.arrastar( p, this, carrinhoHUD, carrinho, listaCompras, produtosArray );
             }
         }
         

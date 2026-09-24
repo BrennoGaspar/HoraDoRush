@@ -19,7 +19,7 @@ public class DragAndDrop {
     // Construtor
     public DragAndDrop() {}
     
-    public void arrastar( Produtos produto, EngineFrame engine, CarrinhoHUD carrinhoHUD, Carrinho carrinho, ListaCompras lista ) {
+    public void arrastar( Produtos produto, EngineFrame engine, CarrinhoHUD carrinhoHUD, Carrinho carrinho, ListaCompras lista, Produtos[] produtosArray ) {
         
         int mouseX = engine.getMouseX();
         int mouseY = engine.getMouseY();
@@ -63,6 +63,35 @@ public class DragAndDrop {
             
         }
         
+        // Verificar colisão entre produtos
+        if( !isArrastando ) {
+            
+            for( Produtos p : produtosArray ) {
+                if( !p.equals(produto) ) {
+                    
+                    int inicioProdutoX = p.getPosX();
+                    int inicioProdutoY = p.getPosY();
+                    int fimProdutoX = p.getPosX() + p.getLargura();
+                    int fimProdutoY = p.getPosY() + p.getAltura();
+                    
+                    boolean colideX = fimX > inicioProdutoX && inicioX < fimProdutoX;
+                    boolean colideY = fimY > inicioProdutoY && inicioY < fimProdutoY;
+                    
+                    if( colideX && colideY ) {
+                        int saidaEsquerda = fimX - inicioProdutoX;
+                        int saidaDireita = fimProdutoX - inicioX;
+                        if( saidaEsquerda < saidaDireita ) {
+                            produto.setPosX( inicioProdutoX - produto.getLargura() );
+                        } else {
+                            produto.setPosX( fimProdutoX );
+                        }
+                    }
+                    
+                }
+            }
+            
+        }
+        
         int fimCarrinhoX = carrinhoHUD.getPosX() + carrinhoHUD.getLargura();
         int fimCarrinhoY = carrinhoHUD.getPosY() + carrinhoHUD.getAltura();
         
@@ -76,15 +105,14 @@ public class DragAndDrop {
                 }
             }
             controlador = 0;
-        } else if( !isArrastando && produto.isEstaCarrinho() ) {
+        } else if ( !isArrastando && produto.isEstaCarrinho() ) {
             if( controlador == 1 ) {
-                if( fimX < carrinhoHUD.getPosX() || fimX > fimCarrinhoX ){
-                    if( fimY < carrinhoHUD.getPosY() || fimY > fimCarrinhoY ) {
-                        carrinho.removerProduto();
-                        produto.alterarEstaCarrinho(); // altera a variavel para false
-                    }
+                if( fimX < carrinhoHUD.getPosX() || fimX > fimCarrinhoX || fimY < carrinhoHUD.getPosY() || fimY > fimCarrinhoY ){
+                    carrinho.removerProduto();
+                    produto.alterarEstaCarrinho(); // altera a variavel para false
                 }
             }
+            controlador = 0;
         }
         
     }
