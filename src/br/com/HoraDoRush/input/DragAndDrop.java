@@ -15,60 +15,60 @@ public class DragAndDrop {
     private boolean isArrastando = false;
     private int diferencaX, diferencaY;
     private int controlador = 0;
+    private Produtos arrastando = null;
     
     // Construtor
     public DragAndDrop() {}
     
-    public void arrastar( Produtos produto, EngineFrame engine, CarrinhoHUD carrinhoHUD, Carrinho carrinho, ListaCompras lista, Produtos[] produtosArray ) {
+    public void iniciarArrasto( Produtos produto, int mouseX, int mouseY ) {
+        this.arrastando = produto;
+        this.isArrastando = true;
+        this.diferencaX = mouseX - produto.getPosX();
+        this.diferencaY = mouseY - produto.getPosY();
+    }
+    
+    public void arrastar( EngineFrame engine, CarrinhoHUD carrinhoHUD, Carrinho carrinho, ListaCompras lista, Produtos[] produtosArray ) {
+        
+        if ( !isArrastando || arrastando == null ) {
+            return;
+        }
         
         int mouseX = engine.getMouseX();
         int mouseY = engine.getMouseY();
         boolean segurando = engine.isMouseButtonDown( EngineFrame.MOUSE_BUTTON_LEFT );
-        
-        int inicioX = produto.getPosX();
-        int inicioY = produto.getPosY();
-        int fimX = produto.getPosX() + produto.getLargura();
-        int fimY = produto.getPosY() + produto.getAltura();
-        
-        if( segurando && !isArrastando ) {
-            isArrastando = true;
-            diferencaX = mouseX - inicioX;
-            diferencaY = mouseY - inicioY; 
-        }
-        
-        if( isArrastando ) {
-            
+    
+        if ( segurando ) {
             controlador = 1;
-            if( segurando ) {
-                int novaPosX = mouseX - diferencaX; // pega o comeco da posicao X do produto
-                int novaPosY = mouseY - diferencaY; // pega o comeco da posicao Y do produto
-                
-                if( novaPosX < 0 ) {
-                    novaPosX = 0;
-                } else if( novaPosX + produto.getLargura() > engine.getScreenWidth() ) {
-                    novaPosX = engine.getScreenWidth() - produto.getLargura();
-                }
-                
-                if( novaPosY < 0 ) {
-                    novaPosY = 0;
-                } else if( novaPosY + produto.getAltura()> engine.getScreenHeight()) {
-                    novaPosY = engine.getScreenHeight() - produto.getAltura();
-                }
-                
-                produto.setPosX( novaPosX );
-                produto.setPosY( novaPosY );
-            } else {
-                isArrastando = false;
+            int novaPosX = mouseX - diferencaX;
+            int novaPosY = mouseY - diferencaY;
+            
+            // Colisão com o limite da tela
+            if ( novaPosX < 0 ) {
+                novaPosX = 0;
+            } else if ( novaPosX + arrastando.getLargura() > engine.getScreenWidth() ) {
+                novaPosX = engine.getScreenWidth() - arrastando.getLargura();
             }
             
-        }
-        
-        // Verificar colisão entre produtos
-        if( !isArrastando ) {
+            if ( novaPosY < 0 ) {
+                novaPosY = 0;
+            } else if ( novaPosY + arrastando.getAltura() > engine.getScreenHeight() ) {
+                novaPosY = engine.getScreenHeight() - arrastando.getAltura();
+            }
             
-            for( Produtos p : produtosArray ) {
-                if( !p.equals(produto) ) {
-                    
+            arrastando.setPosX( novaPosX );
+            arrastando.setPosY( novaPosY );
+
+        } else { // Quando solta o mouse ( !segurando )
+
+            int inicioX = arrastando.getPosX();
+            int inicioY = arrastando.getPosY();
+            int fimX = inicioX + arrastando.getLargura();
+            int fimY = inicioY + arrastando.getAltura();
+
+            // Verificar colisões entre produtos
+            for ( Produtos p : produtosArray ) {
+                
+                if ( !p.equals( arrastando ) ) {
                     int inicioProdutoX = p.getPosX();
                     int inicioProdutoY = p.getPosY();
                     int fimProdutoX = p.getPosX() + p.getLargura();
@@ -77,44 +77,48 @@ public class DragAndDrop {
                     boolean colideX = fimX > inicioProdutoX && inicioX < fimProdutoX;
                     boolean colideY = fimY > inicioProdutoY && inicioY < fimProdutoY;
                     
-                    if( colideX && colideY ) {
+                    if ( colideX && colideY ) {
                         int saidaEsquerda = fimX - inicioProdutoX;
                         int saidaDireita = fimProdutoX - inicioX;
-                        if( saidaEsquerda < saidaDireita ) {
-                            produto.setPosX( inicioProdutoX - produto.getLargura() );
+                        if ( saidaEsquerda < saidaDireita ) {
+                            arrastando.setPosX( inicioProdutoX - arrastando.getLargura() );
                         } else {
-                            produto.setPosX( fimProdutoX );
+                            arrastando.setPosX( fimProdutoX );
                         }
                     }
-                    
                 }
+                
+            }
+
+            fimX = arrastando.getPosX() + arrastando.getLargura();
+            fimY = arrastando.getPosY() + arrastando.getAltura();
+
+            // Verificar se está no carrinho
+            int fimCarrinhoX = carrinhoHUD.getPosX() + carrinhoHUD.getLargura();
+            int fimCarrinhoY = carrinhoHUD.getPosY() + carrinhoHUD.getAltura();
+
+            if ( controlador == 1 ) {
+                boolean colideX = (fimX >= carrinhoHUD.getPosX() && fimX <= fimCarrinhoX);
+                boolean colideY = (fimY >= carrinhoHUD.getPosY() && fimY <= fimCarrinhoY);
+
+                if ( colideX && colideY && !arrastando.isEstaCarrinho() ) {
+                    carrinho.adicionarProduto( arrastando, lista );
+                    arrastando.alterarEstaCarrinho();
+                } else if ( arrastando.isEstaCarrinho() ) {
+                    carrinho.removerProduto();
+                    arrastando.alterarEstaCarrinho();
+                }
+                controlador = 0;
             }
             
+            isArrastando = false;
+            arrastando = null;
+            
         }
-        
-        int fimCarrinhoX = carrinhoHUD.getPosX() + carrinhoHUD.getLargura();
-        int fimCarrinhoY = carrinhoHUD.getPosY() + carrinhoHUD.getAltura();
-        
-        if( !isArrastando && !produto.isEstaCarrinho() ) {
-            if( controlador == 1 ) {
-                if( fimX >= carrinhoHUD.getPosX() && fimX <= fimCarrinhoX ){
-                    if( fimY >= carrinhoHUD.getPosY() && fimY <= fimCarrinhoY ) {
-                        carrinho.adicionarProduto( produto, lista );
-                        produto.alterarEstaCarrinho(); // altera a variavel para true
-                    }
-                }
-            }
-            controlador = 0;
-        } else if ( !isArrastando && produto.isEstaCarrinho() ) {
-            if( controlador == 1 ) {
-                if( fimX < carrinhoHUD.getPosX() || fimX > fimCarrinhoX || fimY < carrinhoHUD.getPosY() || fimY > fimCarrinhoY ){
-                    carrinho.removerProduto();
-                    produto.alterarEstaCarrinho(); // altera a variavel para false
-                }
-            }
-            controlador = 0;
-        }
-        
+    }
+
+    public Produtos getArrastando() {
+        return arrastando;
     }
     
 }

@@ -22,10 +22,7 @@ public class HoraDoRush extends EngineFrame {
     private ListaComprasHUD listaHUD;
     private CarrinhoHUD carrinhoHUD;
     private Produtos[] produtosArray;
-    
-    // Debug / teste
-    private int itensCorretos;
-    private DragAndDrop arrastar;
+    private DragAndDrop dragAndDrop;
     
     // Construtor padrão do jogo
     public HoraDoRush( int dificuldade ) {
@@ -80,7 +77,7 @@ public class HoraDoRush extends EngineFrame {
         
         prateleiraHUD = new Prateleira();
         carrinhoHUD = new CarrinhoHUD();
-        arrastar = new DragAndDrop();
+        dragAndDrop = new DragAndDrop();
         carrinho = new Carrinho();
         produtosArray = new Produtos[0];
         
@@ -99,16 +96,21 @@ public class HoraDoRush extends EngineFrame {
             tempoRestante -= delta;
         }
         
-        for( Produtos p : produtosArray ) {
-            int inicioX = p.getPosX();
-            int inicioY = p.getPosY();
-            int fimX = p.getPosX() + p.getLargura();
-            int fimY = p.getPosY() + p.getAltura();
+        if( isMouseButtonPressed(EngineFrame.MOUSE_BUTTON_LEFT) && dragAndDrop.getArrastando() == null ) {
+            for( int i = produtosArray.length - 1; i >= 0; i-- ) {
+                Produtos p = produtosArray[i];
+                int inicioX = p.getPosX();
+                int inicioY = p.getPosY();
+                int fimX = p.getPosX() + p.getLargura();
+                int fimY = p.getPosY() + p.getAltura();
 
-            if( getMouseX() >= inicioX && getMouseX() <= fimX && getMouseY() >= inicioY && getMouseY() <= fimY ) {
-                arrastar.arrastar( p, this, carrinhoHUD, carrinho, listaCompras, produtosArray );
+                if( getMouseX() >= inicioX && getMouseX() <= fimX && getMouseY() >= inicioY && getMouseY() <= fimY ) {
+                    dragAndDrop.iniciarArrasto( p, getMouseX(), getMouseY() );
+                }
             }
         }
+        
+        dragAndDrop.arrastar( this, carrinhoHUD, carrinho, listaCompras, produtosArray );
         
     }
 
