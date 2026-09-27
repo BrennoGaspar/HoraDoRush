@@ -111,7 +111,7 @@ public class DragAndDrop {
                     arrastando.setPosX( meioCarrinhoX - meioX / 2 );
                     arrastando.setPosY( meioCarrinhoY - meioY / 2 );
                 } else if ( arrastando.isEstaCarrinho() ) {
-                    carrinho.removerProduto();
+                    carrinho.removerProduto( lista, arrastando );
                     arrastando.alterarEstaCarrinho();
                 }
                 controlador = 0;

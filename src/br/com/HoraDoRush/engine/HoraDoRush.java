@@ -34,17 +34,14 @@ public class HoraDoRush extends EngineFrame {
             tempoRestante = 5*3600; // 5 minutos
             gerarProdutos( 3 );
             listaCompras = new ListaCompras( 1 );
-            carrinho.setItensFaltando( 1 );
         } else if( dificuldade == 2 ) {
             tempoRestante = 4*3600; // 4 minutos
             gerarProdutos( 4 );
             listaCompras = new ListaCompras( 2 );
-            carrinho.setItensFaltando( 2 );
         } else if( dificuldade == 3 ) {
             tempoRestante = 3*3600; // 3 minutos
             gerarProdutos( 5 );
             listaCompras = new ListaCompras( 3 );
-            carrinho.setItensFaltando( 3 );
         }
         
         listaCompras.gerarLista( produtosArray );
@@ -136,13 +133,11 @@ public class HoraDoRush extends EngineFrame {
         // Debug / teste
         String listaLabel = String.format( "Itens na lista: %d", listaCompras.getTamanho() );;
         String temLabel = String.format( "Já tem: %d itens no carrinho", carrinho.verificarItensNoCarrinho() );
-        String faltamLabel = String.format( "Faltam: %d itens corretos no carrinho", carrinho.getItensFaltando() );
         
         // Debug / teste
         drawText( listaLabel, getScreenWidth()/2 - 50, getScreenHeight()/2 + 40, 20, BLACK );
         drawText( temLabel, getScreenWidth()/2 - 50, getScreenHeight()/2 + 60, 20, BLACK );
-        drawText( faltamLabel, getScreenWidth()/2 - 50, getScreenHeight()/2 + 80, 20, BLACK );
-
+        
         for( Produtos p : produtosArray ) {
             p.desenhar( this );
         }

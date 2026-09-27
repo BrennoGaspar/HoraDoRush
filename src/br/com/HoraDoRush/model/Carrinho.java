@@ -9,8 +9,6 @@ public class Carrinho {
     
     // Atributos
     private Stack<Produtos> pilha;
-    private int itensFaltando;
-    private int itensNoCarrinho;
     
     // Construtor
     public Carrinho() {
@@ -21,30 +19,13 @@ public class Carrinho {
     public Stack<Produtos> getPilha() {
         return pilha;
     }
-
-    public int getItensFaltando() {
-        return itensFaltando;
-    }
-    
-    // Setters
-    public void setItensFaltando(int itensFaltando) {
-        this.itensFaltando = itensFaltando;
-    }
     
     /**
      * Método para realizar a adição do produto ao Carrinho
      */
     public void adicionarProduto( Produtos produto, ListaCompras lista ) {
         
-        Produtos primeiroLista = lista.getFila().peek();
-        
-        if( produto.equals(primeiroLista) ){
-            lista.getFila().poll();
-            lista.setTamanho( --itensFaltando );
-        } else {
-            System.out.printf( "\nDEBUG - Produto incorreto, voce adicionou %s - o correto seria %s\n", produto.getNome(), lista.getFila().peek().getNome() );
-        }
-        
+        lista.verificarAdicao( produto );        
         pilha.add( produto );
         
     }
@@ -52,8 +33,9 @@ public class Carrinho {
     /**
      * Método para realizar a subtração (retirada) do produto adicionado por último no Carrinho (LIFO)
      */
-    public void removerProduto() {
+    public void removerProduto( ListaCompras lista, Produtos p ) {
         pilha.pop();
+        lista.verificarRemocao( p, this );
     }
     
     /**
