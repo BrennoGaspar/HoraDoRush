@@ -28,7 +28,7 @@ public class HoraDoRush extends EngineFrame {
     public HoraDoRush( int dificuldade ) {
         
         // cria a janela do jogo ou simulação
-        super( 1500, 950, obterTitulo(dificuldade), 60, true );
+        super( 1500, 950, obterTitulo(dificuldade), 180, true );
         
         if( dificuldade == 1 ) {
             tempoRestante = 5*3600; // 5 minutos
@@ -105,7 +105,9 @@ public class HoraDoRush extends EngineFrame {
                 int fimY = p.getPosY() + p.getAltura();
 
                 if( getMouseX() >= inicioX && getMouseX() <= fimX && getMouseY() >= inicioY && getMouseY() <= fimY ) {
+                    trazerParaFrente( i );
                     dragAndDrop.iniciarArrasto( p, getMouseX(), getMouseY() );
+                    break; // para o for quando seleciona o produto do topo
                 }
             }
         }
@@ -152,6 +154,18 @@ public class HoraDoRush extends EngineFrame {
         for( int i = 0; i < numero; i++ ) {
             produtosArray[i] = new Produtos( 10 + 100*i, 10 + 100*i, 100, 100 );
         }
+    }
+    
+    private void trazerParaFrente( int indice ) {
+        if ( indice < 0 || indice >= produtosArray.length - 1 ) {
+            return; // o produto já é o primeiro
+        }
+
+        Produtos p = produtosArray[indice];
+        for( int i = indice; i < produtosArray.length - 1; i++ ) {
+            produtosArray[i] = produtosArray[i + 1];
+        }
+        produtosArray[produtosArray.length - 1] = p;
     }
     
 }

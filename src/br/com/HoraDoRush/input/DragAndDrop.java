@@ -65,7 +65,7 @@ public class DragAndDrop {
             int fimX = inicioX + arrastando.getLargura();
             int fimY = inicioY + arrastando.getAltura();
 
-            // Verificar colisões entre produtos
+            // Verifica colisões entre produtos
             for ( Produtos p : produtosArray ) {
                 
                 if ( !p.equals( arrastando ) ) {
@@ -104,6 +104,12 @@ public class DragAndDrop {
                 if ( colideX && colideY && !arrastando.isEstaCarrinho() ) {
                     carrinho.adicionarProduto( arrastando, lista );
                     arrastando.alterarEstaCarrinho();
+                    int meioX = fimX - inicioX;
+                    int meioY = fimY - inicioY;
+                    int meioCarrinhoX = (fimCarrinhoX + carrinhoHUD.getPosX()) / 2;
+                    int meioCarrinhoY = (fimCarrinhoY + carrinhoHUD.getPosY()) / 2;
+                    arrastando.setPosX( meioCarrinhoX - meioX / 2 );
+                    arrastando.setPosY( meioCarrinhoY - meioY / 2 );
                 } else if ( arrastando.isEstaCarrinho() ) {
                     carrinho.removerProduto();
                     arrastando.alterarEstaCarrinho();
