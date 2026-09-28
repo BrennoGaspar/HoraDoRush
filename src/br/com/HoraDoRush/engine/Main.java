@@ -8,7 +8,6 @@ import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
 public class Main extends EngineFrame {
 
     // declaração de variáveis
-    private int opcao;
     private HoraDoRush jogo;
     
     // Construtor padrão do jogo

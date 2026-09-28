@@ -37,15 +37,7 @@ public class Produtos {
         
     }
     
-    /**
-     * Função para escolher o nome do Produto
-     */
-    private static int gerarNumero() {
-        Random random = new Random();
-        return random.nextInt( nomes.length );
-    }
-    
-    // Getter
+    // Getters
     public String getNome() {
         return nome;
     }
@@ -83,7 +75,15 @@ public class Produtos {
         this.estaCarrinho = !estaCarrinho;
     }    
     
-    // Verificar se dois produtos são iguais
+    /**
+     * Função para escolher o nome do Produto
+     */
+    private static int gerarNumero() {
+        Random random = new Random();
+        return random.nextInt( nomes.length );
+    }
+    
+    // Override para verificar se dois produtos são iguais usando o nome
     @Override
     public boolean equals( Object obj ) {
         Produtos t = (Produtos) obj;
@@ -126,6 +126,21 @@ public class Produtos {
             return null;
         }
         
+    }
+    
+    /**
+     * Método para trazer o produto selecionado para frente (no eixo Z)
+     */
+    public void trazerParaFrente( int indice, Produtos[] produtosArray ) {
+        if ( indice < 0 || indice >= produtosArray.length - 1 ) {
+            return; // o produto já é o primeiro
+        }
+
+        Produtos p = produtosArray[indice];
+        for( int i = indice; i < produtosArray.length - 1; i++ ) {
+            produtosArray[i] = produtosArray[i + 1];
+        }
+        produtosArray[produtosArray.length - 1] = p;
     }
     
 }

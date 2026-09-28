@@ -56,6 +56,7 @@ public class ListaCompras {
             numerosEscolhidos.add( n );
         }
         
+        // gera uma cópia
         for( Produtos p : fila ) {
             copia.add( p );
         }

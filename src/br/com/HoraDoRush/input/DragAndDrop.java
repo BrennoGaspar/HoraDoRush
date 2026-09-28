@@ -20,6 +20,9 @@ public class DragAndDrop {
     // Construtor
     public DragAndDrop() {}
     
+    /**
+     * Método para declarar o produto que vai ser arrastado (para evitar duplicidade no arrasto) 
+     */
     public void iniciarArrasto( Produtos produto, int mouseX, int mouseY ) {
         this.arrastando = produto;
         this.isArrastando = true;
@@ -27,6 +30,9 @@ public class DragAndDrop {
         this.diferencaY = mouseY - produto.getPosY();
     }
     
+    /**
+     * Método que controla e trata o arrastar de cada produto
+     */
     public void arrastar( EngineFrame engine, CarrinhoHUD carrinhoHUD, Carrinho carrinho, ListaCompras lista, Produtos[] produtosArray ) {
         
         if ( !isArrastando || arrastando == null ) {
@@ -64,6 +70,8 @@ public class DragAndDrop {
             int inicioY = arrastando.getPosY();
             int fimX = inicioX + arrastando.getLargura();
             int fimY = inicioY + arrastando.getAltura();
+            int meioX = fimX - inicioX;
+            int meioY = fimY - inicioY;
 
             // Verifica colisões entre produtos
             for ( Produtos p : produtosArray ) {
@@ -77,6 +85,7 @@ public class DragAndDrop {
                     boolean colideX = fimX > inicioProdutoX && inicioX < fimProdutoX;
                     boolean colideY = fimY > inicioProdutoY && inicioY < fimProdutoY;
                     
+                    // Escolhe a "saída" mais próxima (para a direita ou esquerda)
                     if ( colideX && colideY ) {
                         int saidaEsquerda = fimX - inicioProdutoX;
                         int saidaDireita = fimProdutoX - inicioX;
@@ -93,24 +102,22 @@ public class DragAndDrop {
             fimX = arrastando.getPosX() + arrastando.getLargura();
             fimY = arrastando.getPosY() + arrastando.getAltura();
 
-            // Verificar se está no carrinho
+            // Verificar se o produto está dentro do carrinho
             int fimCarrinhoX = carrinhoHUD.getPosX() + carrinhoHUD.getLargura();
             int fimCarrinhoY = carrinhoHUD.getPosY() + carrinhoHUD.getAltura();
+            int meioCarrinhoX = ( fimCarrinhoX + carrinhoHUD.getPosX() ) / 2;
+            int meioCarrinhoY = ( fimCarrinhoY + carrinhoHUD.getPosY() ) / 2;
 
             if ( controlador == 1 ) {
-                boolean colideX = (fimX >= carrinhoHUD.getPosX() && fimX <= fimCarrinhoX);
-                boolean colideY = (fimY >= carrinhoHUD.getPosY() && fimY <= fimCarrinhoY);
+                boolean colideX = ( fimX >= carrinhoHUD.getPosX() && fimX <= fimCarrinhoX );
+                boolean colideY = ( fimY >= carrinhoHUD.getPosY() && fimY <= fimCarrinhoY );
 
-                if ( colideX && colideY && !arrastando.isEstaCarrinho() ) {
+                if ( colideX && colideY && !arrastando.isEstaCarrinho() ) { // se o produto estiver dentro do carrinho
                     carrinho.adicionarProduto( arrastando, lista );
-                    arrastando.alterarEstaCarrinho();
-                    int meioX = fimX - inicioX;
-                    int meioY = fimY - inicioY;
-                    int meioCarrinhoX = (fimCarrinhoX + carrinhoHUD.getPosX()) / 2;
-                    int meioCarrinhoY = (fimCarrinhoY + carrinhoHUD.getPosY()) / 2;
+                    arrastando.alterarEstaCarrinho();                    
                     arrastando.setPosX( meioCarrinhoX - meioX / 2 );
                     arrastando.setPosY( meioCarrinhoY - meioY / 2 );
-                } else if ( arrastando.isEstaCarrinho() ) {
+                } else if ( arrastando.isEstaCarrinho() ) { // se o produto estava dentro do carrinho e foi tirado
                     carrinho.removerProduto( lista, arrastando );
                     arrastando.alterarEstaCarrinho();
                 }

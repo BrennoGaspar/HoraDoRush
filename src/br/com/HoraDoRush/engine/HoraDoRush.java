@@ -102,7 +102,7 @@ public class HoraDoRush extends EngineFrame {
                 int fimY = p.getPosY() + p.getAltura();
 
                 if( getMouseX() >= inicioX && getMouseX() <= fimX && getMouseY() >= inicioY && getMouseY() <= fimY ) {
-                    trazerParaFrente( i );
+                    p.trazerParaFrente( i, produtosArray );
                     dragAndDrop.iniciarArrasto( p, getMouseX(), getMouseY() );
                     break; // para o for quando seleciona o produto do topo
                 }
@@ -144,23 +144,14 @@ public class HoraDoRush extends EngineFrame {
             
     }
     
+    /**
+     * Método para gerar o array com todos os produtos
+     */
     private void gerarProdutos( int numero ) {
         produtosArray = new Produtos[numero];
         for( int i = 0; i < numero; i++ ) {
             produtosArray[i] = new Produtos( 10 + 100*i, 10 + 100*i, 100, 100 );
         }
-    }
-    
-    private void trazerParaFrente( int indice ) {
-        if ( indice < 0 || indice >= produtosArray.length - 1 ) {
-            return; // o produto já é o primeiro
-        }
-
-        Produtos p = produtosArray[indice];
-        for( int i = indice; i < produtosArray.length - 1; i++ ) {
-            produtosArray[i] = produtosArray[i + 1];
-        }
-        produtosArray[produtosArray.length - 1] = p;
     }
     
 }
