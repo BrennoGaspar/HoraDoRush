@@ -18,6 +18,7 @@ public class Produtos {
     private Image sprite;
     private boolean estaCarrinho;
     private static ArrayList<String> posicoesOcupadas = new ArrayList<>();
+    private static ArrayList<String> produtosGerados = new ArrayList<>();
     
     private static String[] nomes = new String[]{
         "Banana",
@@ -30,7 +31,7 @@ public class Produtos {
     // Construtor
     public Produtos() {
         
-        this.nome = nomes[ gerarNumero() ];
+        this.nome = gerarNome();
         gerarPosicao();
         
     }
@@ -96,6 +97,23 @@ public class Produtos {
     }
     
     /**
+     * Método para gerar o nome do produto criado (evitar duplicidade)
+     */
+    private String gerarNome() {
+        
+        String nomeGerado;
+        while( true ){
+            nomeGerado = nomes[ gerarNumero() ];
+            if( !produtosGerados.contains( nomeGerado ) ) {
+                produtosGerados.add( nomeGerado );
+                break;
+            }
+        }
+        return nomeGerado;
+        
+    }
+    
+    /**
      * Método para randomizar a posição do produto
      */
     private void gerarPosicao() {
@@ -110,7 +128,7 @@ public class Produtos {
         while( !valido ) {
             int sorteioX = posicoesXPrateleira[ random.nextInt(5) ];
             int sorteioY = posicoesYPrateleira[ random.nextInt(4) ] - altura;
-            String posicaoChave = sorteioX + ", " + sorteioY;
+            String posicaoChave = sorteioX + ", " + sorteioY; // X, Y
 
             if( !posicoesOcupadas.contains(posicaoChave) ) {
                 posX = sorteioX;

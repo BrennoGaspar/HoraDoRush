@@ -93,6 +93,7 @@ public class HoraDoRush extends EngineFrame {
             tempoRestante -= delta;
         }
         
+        // Sistema para arrastar (mover) os produtos
         if( isMouseButtonPressed(EngineFrame.MOUSE_BUTTON_LEFT) && dragAndDrop.getArrastando() == null ) {
             for( int i = produtosArray.length - 1; i >= 0; i-- ) {
                 Produtos p = produtosArray[i];
@@ -108,8 +109,12 @@ public class HoraDoRush extends EngineFrame {
                 }
             }
         }
-        
         dragAndDrop.arrastar( this, carrinhoHUD, carrinho, listaCompras, produtosArray );
+        
+        // Sistema de vitória - TODO
+        if( listaCompras.getFila().isEmpty() && carrinho.getPilha().size() == listaCompras.getCopia().size() ) {
+            System.out.println("vitoria");
+        }
         
     }
 

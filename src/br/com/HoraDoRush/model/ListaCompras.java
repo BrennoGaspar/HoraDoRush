@@ -31,6 +31,10 @@ public class ListaCompras {
     public Queue<Produtos> getFila() {
         return fila;
     }
+
+    public Queue<Produtos> getCopia() {
+        return copia;
+    }
     
     // Setters
     public void setTamanho(int tamanho) {

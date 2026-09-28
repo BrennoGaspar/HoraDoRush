@@ -1,0 +1,9 @@
+Coisas restantes no projeto, por ordem de prioridade:
+
+- Sistema de vitória (o que aparece)
+- Sistema de derrota (o que aparece)
+- Imagem do carrinho
+- Repaginar a tela do jogo (design)
+- Repaginar a lista de compras (design / layout dela)
+- Fazer o design da página inicial para escolher o nível de dificuldade (botões)
+- Adição de mais produtos (maior diversidade)
