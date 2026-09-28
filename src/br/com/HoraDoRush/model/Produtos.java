@@ -4,6 +4,7 @@ import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
 import br.com.davidbuzatto.jsge.geom.Rectangle;
 import br.com.davidbuzatto.jsge.image.Image;
 import br.com.davidbuzatto.jsge.image.ImageUtils;
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -13,9 +14,10 @@ public class Produtos {
     
     // Atributos
     private String nome;
-    private int posX, posY, largura, altura;
+    private int posX, posY, largura = 100, altura = 100;
     private Image sprite;
     private boolean estaCarrinho;
+    private static ArrayList<String> posicoesOcupadas = new ArrayList<>();
     
     private static String[] nomes = new String[]{
         "Banana",
@@ -26,14 +28,10 @@ public class Produtos {
     };
     
     // Construtor
-    public Produtos( int posX, int posY, int largura, int altura ) {
+    public Produtos() {
         
         this.nome = nomes[ gerarNumero() ];
-        this.posX    = posX;
-        this.posY    = posY;
-        this.largura = largura;
-        this.altura  = altura;
-        this.estaCarrinho = false;
+        gerarPosicao();
         
     }
     
@@ -73,14 +71,6 @@ public class Produtos {
 
     public void alterarEstaCarrinho() {
         this.estaCarrinho = !estaCarrinho;
-    }    
-    
-    /**
-     * Função para escolher o nome do Produto
-     */
-    private static int gerarNumero() {
-        Random random = new Random();
-        return random.nextInt( nomes.length );
     }
     
     // Override para verificar se dois produtos são iguais usando o nome
@@ -88,6 +78,56 @@ public class Produtos {
     public boolean equals( Object obj ) {
         Produtos t = (Produtos) obj;
         return this.nome.equals( t.nome );
+    }
+    
+    /**
+     * Método para trazer o produto selecionado para frente (no eixo Z)
+     */
+    public void trazerParaFrente( int indice, Produtos[] produtosArray ) {
+        if ( indice < 0 || indice >= produtosArray.length - 1 ) {
+            return; // o produto já é o primeiro
+        }
+
+        Produtos p = produtosArray[indice];
+        for( int i = indice; i < produtosArray.length - 1; i++ ) {
+            produtosArray[i] = produtosArray[i + 1];
+        }
+        produtosArray[produtosArray.length - 1] = p;
+    }
+    
+    /**
+     * Método para randomizar a posição do produto
+     */
+    private void gerarPosicao() {
+        
+        Random random = new Random();
+        boolean valido = false;
+    
+        // Posições calculadas usando debug por desenho
+        int[] posicoesXPrateleira = new int[]{ 0, 150, 300, 450, 600 };
+        int[] posicoesYPrateleira = new int[]{ 190, 400, 580, 780 };
+        
+        while( !valido ) {
+            int sorteioX = posicoesXPrateleira[ random.nextInt(5) ];
+            int sorteioY = posicoesYPrateleira[ random.nextInt(4) ] - altura;
+            String posicaoChave = sorteioX + ", " + sorteioY;
+
+            if( !posicoesOcupadas.contains(posicaoChave) ) {
+                posX = sorteioX;
+                posY = sorteioY;
+                posicoesOcupadas.add( posicaoChave );
+                valido = true;
+            }
+        }
+        
+    }
+    
+    /**
+     * Método para escolher o nome do Produto
+     */
+    private static int gerarNumero() {
+        Random random = new Random();
+        return random.nextInt( nomes.length );
     }
     
     /**
@@ -126,21 +166,6 @@ public class Produtos {
             return null;
         }
         
-    }
-    
-    /**
-     * Método para trazer o produto selecionado para frente (no eixo Z)
-     */
-    public void trazerParaFrente( int indice, Produtos[] produtosArray ) {
-        if ( indice < 0 || indice >= produtosArray.length - 1 ) {
-            return; // o produto já é o primeiro
-        }
-
-        Produtos p = produtosArray[indice];
-        for( int i = indice; i < produtosArray.length - 1; i++ ) {
-            produtosArray[i] = produtosArray[i + 1];
-        }
-        produtosArray[produtosArray.length - 1] = p;
     }
     
 }

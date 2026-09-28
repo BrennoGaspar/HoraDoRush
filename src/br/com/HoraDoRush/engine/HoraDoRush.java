@@ -150,7 +150,7 @@ public class HoraDoRush extends EngineFrame {
     private void gerarProdutos( int numero ) {
         produtosArray = new Produtos[numero];
         for( int i = 0; i < numero; i++ ) {
-            produtosArray[i] = new Produtos( 10 + 100*i, 10 + 100*i, 100, 100 );
+            produtosArray[i] = new Produtos();
         }
     }
     
