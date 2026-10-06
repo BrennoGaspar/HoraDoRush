@@ -53,7 +53,9 @@ public class Main extends EngineFrame {
     @Override
     public void draw() {
         String texto = "Escolha a dificuldade do jogo!";
-        drawText( texto, getScreenWidth()/2, getScreenHeight()/2, 20, BLACK);
+        String textoII = "1: Facil / 2: Medio / 3: Dificil";
+        drawText( texto, getScreenWidth()/2 - 180, getScreenHeight()/2 - 30, 20, BLACK);
+        drawText( textoII, getScreenWidth()/2 - 190, getScreenHeight()/2 + 20, 20, BLACK);
     }
 
     public static void main( String[] args ) { new Main(); }

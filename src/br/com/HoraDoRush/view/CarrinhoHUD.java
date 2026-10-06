@@ -35,7 +35,7 @@ public class CarrinhoHUD {
     }
     
     /**
-     * Método para desenhar a prateleira
+     * Método para desenhar a prateleira (nao eh o carrinho?)
      */
     public void desenhar( EngineFrame engine ) {
         

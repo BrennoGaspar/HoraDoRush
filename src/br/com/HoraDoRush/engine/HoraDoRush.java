@@ -14,6 +14,14 @@ import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
  */
 public class HoraDoRush extends EngineFrame {
 
+    // definição do estado do jogo para telas de win e loss
+    public enum EstadoJogo{
+        PLAYING,
+        TELA_WIN,
+        TELA_LOSS
+    }
+    private EstadoJogo estadoAtual = EstadoJogo.PLAYING;
+
     // declaração de variáveis
     private int tempoRestante;
     private Carrinho carrinho;
@@ -30,6 +38,9 @@ public class HoraDoRush extends EngineFrame {
         // cria a janela do jogo ou simulação
         super( 1500, 950, obterTitulo(dificuldade), 180, true );
         
+        // Limpa a memória vinculada à partida anterior (static att)
+        Produtos.resetStaticData();
+        
         if( dificuldade == 1 ) {
             tempoRestante = 5*3600; // 5 minutos
             gerarProdutos( 3 );
@@ -40,6 +51,7 @@ public class HoraDoRush extends EngineFrame {
             listaCompras = new ListaCompras( 2 );
         } else if( dificuldade == 3 ) {
             tempoRestante = 3*3600; // 3 minutos
+            // DEBUG -> tempoRestante = 1*3600; // 1 minuto
             gerarProdutos( 5 );
             listaCompras = new ListaCompras( 3 );
         }
@@ -88,11 +100,17 @@ public class HoraDoRush extends EngineFrame {
     @Override
     public void update( double delta ) {
         
-        // Diminuir o tempo restante a cada segundo
-        if( tempoRestante > 0 ) {
-            tempoRestante -= delta;
+        // Lógica pra derrota
+        if(estadoAtual == EstadoJogo.PLAYING) {
+            // Diminuir o tempo restante a cada segundo
+            if( tempoRestante > 0 ) {
+                tempoRestante -= delta;
+            } else{
+                estadoAtual = EstadoJogo.TELA_LOSS; // Condição de derrota
+            }
+
         }
-        
+
         // Sistema para arrastar (mover) os produtos
         if( isMouseButtonPressed(EngineFrame.MOUSE_BUTTON_LEFT) && dragAndDrop.getArrastando() == null ) {
             for( int i = produtosArray.length - 1; i >= 0; i-- ) {
@@ -113,7 +131,17 @@ public class HoraDoRush extends EngineFrame {
         
         // Sistema de vitória - TODO
         if( listaCompras.getFila().isEmpty() && carrinho.getPilha().size() == listaCompras.getCopia().size() ) {
-            System.out.println("vitoria");
+            estadoAtual = EstadoJogo.TELA_WIN;
+        } else{ 
+            
+        }
+        
+        // Lógica de retorno pro menu 
+        if(estadoAtual == EstadoJogo.TELA_LOSS || estadoAtual == EstadoJogo.TELA_WIN){
+            if(isKeyPressed(KEY_ENTER)){
+                new Main();
+                this.setVisible(false); 
+            }
         }
         
     }
@@ -146,7 +174,26 @@ public class HoraDoRush extends EngineFrame {
         for( Produtos p : produtosArray ) {
             p.desenhar( this );
         }
-            
+        
+        // Texto de Vitória
+        String textoWin = "Compra Concluida com Sucesso!"; 
+        
+        // Texto de Derrota
+        String textoLossTime = "O tempo acabou, voce perdeu!"; 
+        
+        // Texto do Menu
+        String textoMenu = "Pressione ENTER para voltar ao menu";
+        
+        // desenha as telas de win e loss
+        if(estadoAtual == EstadoJogo.TELA_WIN) {
+            fillRectangle( 0, 0, getScreenWidth(), getScreenHeight(), new java.awt.Color(0, 0, 0, 180) );
+            drawText(textoWin, getScreenWidth() - 1000, getScreenHeight() - 500, 30, RED);
+            drawText(textoMenu, getScreenWidth() - 1000, getScreenHeight() - 450, 25, BLUE);
+        } else if (estadoAtual == EstadoJogo.TELA_LOSS) {
+            fillRectangle( 0, 0, getScreenWidth(), getScreenHeight(), new java.awt.Color(0, 0, 0, 180) );
+            drawText(textoLossTime, getScreenWidth() - 1000, getScreenHeight() - 500, 30, RED);
+            drawText(textoMenu, getScreenWidth() - 1000, getScreenHeight() - 450, 25, BLUE);
+        }            
     }
     
     /**

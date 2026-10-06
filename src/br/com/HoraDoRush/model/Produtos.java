@@ -74,6 +74,12 @@ public class Produtos {
         this.estaCarrinho = !estaCarrinho;
     }
     
+    // resetar os dados pra proxima partida 
+    public static void resetStaticData() {
+        posicoesOcupadas.clear();
+        produtosGerados.clear();
+    }
+    
     // Override para verificar se dois produtos são iguais usando o nome
     @Override
     public boolean equals( Object obj ) {
