@@ -3,7 +3,6 @@ package br.com.HoraDoRush.view;
 import br.com.HoraDoRush.model.ListaCompras;
 import br.com.HoraDoRush.model.Produtos;
 import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
-import br.com.davidbuzatto.jsge.geom.Rectangle;
 import br.com.davidbuzatto.jsge.image.Image;
 import br.com.davidbuzatto.jsge.image.ImageUtils;
 import java.awt.Color;
@@ -15,7 +14,7 @@ public class ListaComprasHUD {
     
     // Atributos
     private ListaCompras listaCompras;
-    private Image sprite = ImageUtils.loadImage( "src/br/com/HoraDoRush/model/assets/notes.png" );;
+    private Image sprite = ImageUtils.loadImage( "src/br/com/HoraDoRush/model/assets/notes.png" );
     
     // Construtor
     public ListaComprasHUD( ListaCompras listaCompras ) {
@@ -39,8 +38,8 @@ public class ListaComprasHUD {
         
        Color lightYellow = new Color(255, 249, 196);
         
-        engine.fillRectangle( larguraTela - 350, alturaTela / 2 - 400, 300, 500, lightYellow );
-        engine.drawText( "Lista de compras", larguraTela - 300, alturaTela / 2 - 380, 20, Color.BLACK );
+        engine.fillRectangle( larguraTela - 350, alturaTela / 2 - 400, 300, 360, lightYellow );
+        engine.drawText("Fila de compras", larguraTela - 300, alturaTela / 2 - 380, 20, Color.BLACK );
         
         int espacamento = 0;
         for( Produtos p : listaCompras.getFila() ) {

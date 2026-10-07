@@ -50,17 +50,17 @@ public class HoraDoRush extends EngineFrame {
         
         if( dificuldade == 1 ) {
             tempoRestante = 5*60; // 5 minutos
-            gerarProdutos( 3 );
-            listaCompras = new ListaCompras( 1 );
+            gerarProdutos( 10 );
+            listaCompras = new ListaCompras( 5 );
         } else if( dificuldade == 2 ) {
             tempoRestante = 4*60; // 4 minutos
-            gerarProdutos( 4 );
-            listaCompras = new ListaCompras( 2 );
+            gerarProdutos( 15 );
+            listaCompras = new ListaCompras( 7 );
         } else if( dificuldade == 3 ) {
             tempoRestante = 3*60; // 3 minutos
             // DEBUG -> tempoRestante = 1*3600; // 1 minuto
-            gerarProdutos( 5 );
-            listaCompras = new ListaCompras( 3 );
+            gerarProdutos( 20 );
+            listaCompras = new ListaCompras( 9 );
         }
         
         listaCompras.gerarLista( produtosArray );

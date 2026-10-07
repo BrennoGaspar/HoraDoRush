@@ -77,22 +77,24 @@ public class DragAndDrop {
             for ( Produtos p : produtosArray ) {
                 
                 if ( !p.equals( arrastando ) ) {
-                    int inicioProdutoX = p.getPosX();
-                    int inicioProdutoY = p.getPosY();
-                    int fimProdutoX = p.getPosX() + p.getLargura();
-                    int fimProdutoY = p.getPosY() + p.getAltura();
-                    
-                    boolean colideX = fimX > inicioProdutoX && inicioX < fimProdutoX;
-                    boolean colideY = fimY > inicioProdutoY && inicioY < fimProdutoY;
-                    
-                    // Escolhe a "saída" mais próxima (para a direita ou esquerda)
-                    if ( colideX && colideY ) {
-                        int saidaEsquerda = fimX - inicioProdutoX;
-                        int saidaDireita = fimProdutoX - inicioX;
-                        if ( saidaEsquerda < saidaDireita ) {
-                            arrastando.setPosX( inicioProdutoX - arrastando.getLargura() );
-                        } else {
-                            arrastando.setPosX( fimProdutoX );
+                    if( !p.isEstaCarrinho() ) {
+                        int inicioProdutoX = p.getPosX();
+                        int inicioProdutoY = p.getPosY();
+                        int fimProdutoX = p.getPosX() + p.getLargura();
+                        int fimProdutoY = p.getPosY() + p.getAltura();
+
+                        boolean colideX = fimX > inicioProdutoX && inicioX < fimProdutoX;
+                        boolean colideY = fimY > inicioProdutoY && inicioY < fimProdutoY;
+
+                        // Escolhe a "saída" mais próxima (para a direita ou esquerda)
+                        if ( colideX && colideY ) {
+                            int saidaEsquerda = fimX - inicioProdutoX;
+                            int saidaDireita = fimProdutoX - inicioX;
+                            if ( saidaEsquerda < saidaDireita ) {
+                                arrastando.setPosX( inicioProdutoX - arrastando.getLargura() );
+                            } else {
+                                arrastando.setPosX( fimProdutoX );
+                            }
                         }
                     }
                 }

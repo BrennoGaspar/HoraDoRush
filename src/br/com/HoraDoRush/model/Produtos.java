@@ -26,6 +26,21 @@ public class Produtos {
         "Pera",
         "Morango",
         "Abacate",
+        "Carne",
+        "Oleo",
+        "Sal",
+        "Cafe",
+        "Leite",
+        "Manteiga",
+        "Queijo",
+        "Pao",
+        "Ovo",
+        "Frango",
+        "Cebola",
+        "Alho",
+        "Tomate",
+        "Batata",
+        "Cenoura"
     };
     
     // Construtor
@@ -185,6 +200,51 @@ public class Produtos {
             return sprite;
         } else if( nome.equals( "Abacate" ) ) {
             sprite = ImageUtils.loadImage( "src/br/com/HoraDoRush/model/assets/abacate.png" );
+            return sprite;
+        } else if( nome.equals( "Carne" ) ) {
+            sprite = ImageUtils.loadImage( "src/br/com/HoraDoRush/model/assets/carne.png" );
+            return sprite;
+        } else if( nome.equals( "Oleo" ) ) {
+            sprite = ImageUtils.loadImage( "src/br/com/HoraDoRush/model/assets/oleo.png" );
+            return sprite;
+        } else if( nome.equals( "Sal" ) ) {
+            sprite = ImageUtils.loadImage( "src/br/com/HoraDoRush/model/assets/sal.png" );
+            return sprite;
+        } else if( nome.equals( "Cafe" ) ) {
+            sprite = ImageUtils.loadImage( "src/br/com/HoraDoRush/model/assets/cafe.png" );
+            return sprite;
+        } else if( nome.equals( "Leite" ) ) {
+            sprite = ImageUtils.loadImage( "src/br/com/HoraDoRush/model/assets/leite.png" );
+            return sprite;
+        } else if( nome.equals( "Manteiga" ) ) {
+            sprite = ImageUtils.loadImage( "src/br/com/HoraDoRush/model/assets/manteiga.png" );
+            return sprite;
+        } else if( nome.equals( "Queijo" ) ) {
+            sprite = ImageUtils.loadImage( "src/br/com/HoraDoRush/model/assets/queijo.png" );
+            return sprite;
+        } else if( nome.equals( "Pao" ) ) {
+            sprite = ImageUtils.loadImage( "src/br/com/HoraDoRush/model/assets/pao.png" );
+            return sprite;
+        } else if( nome.equals( "Ovo" ) ) {
+            sprite = ImageUtils.loadImage( "src/br/com/HoraDoRush/model/assets/ovo.png" );
+            return sprite;
+        } else if( nome.equals( "Frango" ) ) {
+            sprite = ImageUtils.loadImage( "src/br/com/HoraDoRush/model/assets/frango.png" );
+            return sprite;
+        } else if( nome.equals( "Cebola" ) ) {
+            sprite = ImageUtils.loadImage( "src/br/com/HoraDoRush/model/assets/cebola.png" );
+            return sprite;
+        } else if( nome.equals( "Alho" ) ) {
+            sprite = ImageUtils.loadImage( "src/br/com/HoraDoRush/model/assets/alho.png" );
+            return sprite;
+        } else if( nome.equals( "Tomate" ) ) {
+            sprite = ImageUtils.loadImage( "src/br/com/HoraDoRush/model/assets/tomate.png" );
+            return sprite;
+        } else if( nome.equals( "Batata" ) ) {
+            sprite = ImageUtils.loadImage( "src/br/com/HoraDoRush/model/assets/batata.png" );
+            return sprite;
+        } else if( nome.equals( "Cenoura" ) ) {
+            sprite = ImageUtils.loadImage( "src/br/com/HoraDoRush/model/assets/cenoura.png" );
             return sprite;
         } else {
             return null;
