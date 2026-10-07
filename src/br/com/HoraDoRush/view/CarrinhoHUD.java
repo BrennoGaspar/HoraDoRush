@@ -1,6 +1,9 @@
 package br.com.HoraDoRush.view;
 
 import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
+import br.com.davidbuzatto.jsge.geom.Rectangle;
+import br.com.davidbuzatto.jsge.image.Image;
+import br.com.davidbuzatto.jsge.image.ImageUtils;
 import java.awt.Color;
 
 /**
@@ -9,10 +12,11 @@ import java.awt.Color;
 public class CarrinhoHUD {
     
     // Atributos
-    private int posX = 600;
-    private int posY = 600;
+    private int posX = 1200;
+    private int posY = 650;
     private int largura = 200;
     private int altura = 200;
+    private Image sprite = ImageUtils.loadImage( "src/br/com/HoraDoRush/model/assets/basket.png" );;
     
     // Construtor
     public CarrinhoHUD() {}
@@ -21,7 +25,7 @@ public class CarrinhoHUD {
     public int getPosX() {
         return posX;
     }
-
+     
     public int getPosY() {
         return posY;
     }
@@ -39,10 +43,15 @@ public class CarrinhoHUD {
      */
     public void desenhar( EngineFrame engine ) {
         
+        Rectangle source = new Rectangle( 0, 0, sprite.getWidth(), sprite.getHeight() );
+        Rectangle dest = new Rectangle( posX, posY, largura, altura );
+        engine.drawImage(sprite, source, dest);
+        
+        /*
         engine.fillRectangle( posX, posY, largura, altura, Color.RED );
         // Debug / Teste
         engine.drawText( "CARRINHO", posX + largura/3, posY + altura/2, 20, Color.BLACK );
-        
+        */
     }
     
 }

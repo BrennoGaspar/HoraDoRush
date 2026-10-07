@@ -161,16 +161,18 @@ public class HoraDoRush extends EngineFrame {
         int minutos = tempoRestante / 3600;
         int segundos = (tempoRestante % 3600) / 60;
         String tempoLabel = String.format( "Tempo restante: %02d:%02d", minutos, segundos );
-        drawText( tempoLabel, getScreenWidth()/2 - 50, getScreenHeight()/2, 20, BLACK );
+        drawText( tempoLabel, getScreenWidth()/2 - 200, getScreenHeight() - 60 , 30, RED );
         
-        // Debug / teste
+        /*Debug / teste
         String listaLabel = String.format( "Itens na lista: %d", listaCompras.getTamanho() );;
         String temLabel = String.format( "Já tem: %d itens no carrinho", carrinho.verificarItensNoCarrinho() );
+        
         
         // Debug / teste
         drawText( listaLabel, getScreenWidth()/2 - 50, getScreenHeight()/2 + 40, 20, BLACK );
         drawText( temLabel, getScreenWidth()/2 - 50, getScreenHeight()/2 + 60, 20, BLACK );
-        
+        */ 
+       
         for( Produtos p : produtosArray ) {
             p.desenhar( this );
         }

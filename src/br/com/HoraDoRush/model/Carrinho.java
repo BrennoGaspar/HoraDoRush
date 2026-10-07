@@ -9,7 +9,7 @@ public class Carrinho {
     
     // Atributos
     private Stack<Produtos> pilha;
-    
+  
     // Construtor
     public Carrinho() {
         pilha = new Stack<>();
