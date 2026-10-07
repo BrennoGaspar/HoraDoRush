@@ -12,10 +12,10 @@ import java.awt.Color;
 public class CarrinhoHUD {
     
     // Atributos
-    private int posX = 1200;
+    private int posX = 1175;
     private int posY = 650;
-    private int largura = 200;
-    private int altura = 200;
+    private int largura = 250;
+    private int altura = 250;
     private Image sprite = ImageUtils.loadImage( "src/br/com/HoraDoRush/model/assets/basket.png" );;
     
     // Construtor

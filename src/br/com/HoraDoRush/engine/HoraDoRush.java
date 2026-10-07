@@ -8,6 +8,12 @@ import br.com.HoraDoRush.view.CarrinhoHUD;
 import br.com.HoraDoRush.view.ListaComprasHUD;
 import br.com.HoraDoRush.view.Prateleira;
 import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
+import br.com.davidbuzatto.jsge.geom.Rectangle;
+import br.com.davidbuzatto.jsge.image.Image;
+import br.com.davidbuzatto.jsge.image.ImageUtils;
+import java.awt.Font;
+import java.awt.GraphicsEnvironment;
+import java.io.File;
 
 /**
  * @author Brenno Gaspar Pinto & Victor Altran Soares
@@ -31,6 +37,7 @@ public class HoraDoRush extends EngineFrame {
     private CarrinhoHUD carrinhoHUD;
     private Produtos[] produtosArray;
     private DragAndDrop dragAndDrop;
+    private Image gameBackground;
     
     // Construtor padrão do jogo
     public HoraDoRush( int dificuldade ) {
@@ -89,6 +96,18 @@ public class HoraDoRush extends EngineFrame {
         dragAndDrop = new DragAndDrop();
         carrinho = new Carrinho();
         produtosArray = new Produtos[0];
+        // import da imagem do fundo
+        gameBackground = ImageUtils.loadImage("src/br/com/HoraDoRush/model/assets/backgroundPastelv2.png");
+        
+        try {
+        // Load the font file
+        Font customFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/br/com/HoraDoRush/model/assets/InterBold.ttf"));
+        // Register it globally
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        ge.registerFont(customFont);
+        } catch (Exception e) {
+            e.printStackTrace();
+}
         
     }
 
@@ -129,11 +148,13 @@ public class HoraDoRush extends EngineFrame {
         }
         dragAndDrop.arrastar( this, carrinhoHUD, carrinho, listaCompras, produtosArray );
         
-        // Sistema de vitória - TODO
-        if( listaCompras.getFila().isEmpty() && carrinho.getPilha().size() == listaCompras.getCopia().size() ) {
-            estadoAtual = EstadoJogo.TELA_WIN;
-        } else{ 
-            
+        // Sistema de vitória
+        try{
+            if( listaCompras.getFila().isEmpty() && carrinho.getPilha().size() == listaCompras.getCopia().size() ) {
+                estadoAtual = EstadoJogo.TELA_WIN;
+            }
+        } catch ( NullPointerException exc ) {
+            // apenas para não printar nada no terminal
         }
         
         // Lógica de retorno pro menu 
@@ -152,15 +173,25 @@ public class HoraDoRush extends EngineFrame {
     @Override
     public void draw() {
         
+        // Desenhar o fundo primeiro 
+        
+        Rectangle source = new Rectangle(0, 0, gameBackground.getWidth(), gameBackground.getHeight());
+        Rectangle dest = new Rectangle(0, 0, getScreenWidth(), getScreenHeight());
+        drawImage(gameBackground, source, dest);
+        
         // Desenhar a prateleira
-        prateleiraHUD.desenhar( this );
-        listaHUD.desenhar( this );
-        carrinhoHUD.desenhar( this );
+        try{
+            prateleiraHUD.desenhar( this );
+            listaHUD.desenhar( this );
+            carrinhoHUD.desenhar( this );
+        } catch ( NullPointerException exc ) {
+            // apenas para retirar erro no console
+        }
         
         // Desenhar os textos na tela para testes / debug
         int minutos = tempoRestante / 3600;
         int segundos = (tempoRestante % 3600) / 60;
-        String tempoLabel = String.format( "Tempo restante: %02d:%02d", minutos, segundos );
+        String tempoLabel = String.format( "Tempo restante: %02d:%02d:%02d", minutos, segundos, tempoRestante );
         drawText( tempoLabel, getScreenWidth()/2 - 200, getScreenHeight() - 60 , 30, RED );
         
         /*Debug / teste
@@ -186,7 +217,7 @@ public class HoraDoRush extends EngineFrame {
         // Texto do Menu
         String textoMenu = "Pressione ENTER para voltar ao menu";
         
-        // desenha as telas de win e loss
+        // Desenha as telas de win e loss
         if(estadoAtual == EstadoJogo.TELA_WIN) {
             fillRectangle( 0, 0, getScreenWidth(), getScreenHeight(), new java.awt.Color(0, 0, 0, 180) );
             drawText(textoWin, getScreenWidth() - 1000, getScreenHeight() - 500, 30, RED);

@@ -36,8 +36,10 @@ public class ListaComprasHUD {
         Rectangle dest = new Rectangle( larguraTela - 350,alturaTela / 2 - 400, 300, 500 );
         engine.drawImage(sprite, source, dest);
         */
-
-        engine.fillRectangle( larguraTela - 350, alturaTela / 2 - 400, 300, 500, Color.YELLOW );
+        
+       Color lightYellow = new Color(255, 249, 196);
+        
+        engine.fillRectangle( larguraTela - 350, alturaTela / 2 - 400, 300, 500, lightYellow );
         engine.drawText( "Lista de compras", larguraTela - 300, alturaTela / 2 - 380, 20, Color.BLACK );
         
         int espacamento = 0;
