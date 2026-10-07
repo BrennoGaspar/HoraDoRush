@@ -16,7 +16,7 @@ public class CarrinhoHUD {
     private int posY = 650;
     private int largura = 250;
     private int altura = 250;
-    private Image sprite = ImageUtils.loadImage( "src/br/com/HoraDoRush/model/assets/basket.png" );;
+    private Image sprite = ImageUtils.loadImage( "src/br/com/HoraDoRush/model/assets/basket2.png" );;
     
     // Construtor
     public CarrinhoHUD() {}
