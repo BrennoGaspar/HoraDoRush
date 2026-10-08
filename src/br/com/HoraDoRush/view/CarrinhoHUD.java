@@ -4,7 +4,6 @@ import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
 import br.com.davidbuzatto.jsge.geom.Rectangle;
 import br.com.davidbuzatto.jsge.image.Image;
 import br.com.davidbuzatto.jsge.image.ImageUtils;
-import java.awt.Color;
 
 /**
  * @author Brenno Gaspar Pinto & Victor Altran Soares
@@ -47,11 +46,6 @@ public class CarrinhoHUD {
         Rectangle dest = new Rectangle( posX, posY, largura, altura );
         engine.drawImage(sprite, source, dest);
         
-        /*
-        engine.fillRectangle( posX, posY, largura, altura, Color.RED );
-        // Debug / Teste
-        engine.drawText( "CARRINHO", posX + largura/3, posY + altura/2, 20, Color.BLACK );
-        */
     }
     
 }

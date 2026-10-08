@@ -1,19 +1,8 @@
-Coisas restantes no projeto, por ordem de prioridade:
-
-- Repaginar a tela do jogo (design)
-    () add fundo 
-    () padronizar sprites
-    
-- Repaginar a lista de compras (design / layout dela)
-
-- Fazer o design da página inicial para escolher o nível de dificuldade (botões)
-    () add logo / redesenhar a tela
-    () add botoes
-
-- Adição de mais produtos (maior diversidade)
-    
-
 FEITOS: 
 - Sistema de vitória (o que aparece) - FEITO 
 - Sistema de derrota (o que aparece) - FEITO 
 - Imagem do carrinho - FEITO 
+- Repaginar a lista de compras (design / layout dela) - FEITO
+- Repaginar a tela do jogo (design) - FEITO
+- Adição de mais produtos (maior diversidade) - FEITO
+- Fazer o design da página inicial para escolher o nível de dificuldade (botões) - FEITO

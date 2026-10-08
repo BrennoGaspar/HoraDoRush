@@ -3,8 +3,6 @@ package br.com.HoraDoRush.view;
 import br.com.HoraDoRush.model.ListaCompras;
 import br.com.HoraDoRush.model.Produtos;
 import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
-import br.com.davidbuzatto.jsge.image.Image;
-import br.com.davidbuzatto.jsge.image.ImageUtils;
 import java.awt.Color;
 
 /**
@@ -14,7 +12,6 @@ public class ListaComprasHUD {
     
     // Atributos
     private ListaCompras listaCompras;
-    private Image sprite = ImageUtils.loadImage( "src/br/com/HoraDoRush/model/assets/notes.png" );
     
     // Construtor
     public ListaComprasHUD( ListaCompras listaCompras ) {
@@ -28,13 +25,6 @@ public class ListaComprasHUD {
         
         int larguraTela = engine.getScreenWidth();
         int alturaTela = engine.getScreenHeight();
-       
-        // Rascunho de Implementação de sprite
-        /*
-        Rectangle source = new Rectangle( 0, 0, sprite.getWidth(), sprite.getHeight() );
-        Rectangle dest = new Rectangle( larguraTela - 350,alturaTela / 2 - 400, 300, 500 );
-        engine.drawImage(sprite, source, dest);
-        */
         
        Color lightYellow = new Color(255, 249, 196);
         

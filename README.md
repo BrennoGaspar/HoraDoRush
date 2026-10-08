@@ -1,18 +1,10 @@
-# Hora do Rush 🛒⏳
+# Hora do Rush 🛒
 
-Um jogo casual 2D focado na aplicação prática de Estruturas de Dados, simulando o gerenciamento de estado e a correria de um supermercado contra o relógio.
+> Um jogo casual 2D focado na aplicação prática de Estruturas de Dados, simulando o gerenciamento de estado e a correria de um supermercado contra o relógio.
 
 ## ✨ Objetivo
 
 O **Hora do Rush** foi criado para traduzir conceitos fundamentais de Ciência da Computação e arquitetura de software para um ambiente interativo. O jogador deve preencher seu carrinho de compras arrastando os produtos exatos exigidos por uma lista, lidando com tempo limite e ordenação correta.
-
-## ⚙️ Como Executar
-
-Por se tratar de um projeto Java Desktop construído com a engine JSGE, o projeto deve ser executado localmente:
-1. Clone este repositório: `git clone https://github.com/seu-usuario/horadorush.git`
-2. Abra a pasta do projeto na sua IDE de preferência (NetBeans, IntelliJ, Eclipse).
-3. Certifique-se de que a biblioteca **JSGE** está configurada no `build path`.
-4. Execute o arquivo principal: `Main.java`
 
 ## 🚀 Funcionalidades
 
@@ -34,9 +26,6 @@ O grande diferencial deste projeto é a forma como as mecânicas de jogo operam 
   * **Onde:** `ListaCompras.java`
   * **Como:** Utiliza uma `ArrayBlockingQueue` para determinar a sequência rigorosa de itens que o jogador deve coletar para validar a condição de vitória.
   * **No mundo real:** Filas formam a espinha dorsal de sistemas escaláveis no backend, como Apache Kafka ou RabbitMQ, processando requisições assíncronas e mensageria sem travar o servidor.
-* ⚡ **Listas Indexadas (Arrays & ArrayLists):** 
-  * **Onde:** `Produtos.java` e `HoraDoRush.java`
-  * **Como:** Usadas para gerenciar a renderização dos sprites, evitar sobreposição de *hitboxes* (coordenadas ocupadas) e acessar rapidamente os dados na memória em tempo constante `O(1)`.
 
 ## 🖼️ Níveis de Dificuldade
 
@@ -59,7 +48,7 @@ O sistema escala o tamanho das estruturas de dados conforme o nível escolhido:
 
 O projeto foi desenvolvido com foco em:
 * 🖥️ Sair da teoria e aplicar Estruturas de Dados em um contexto interativo.
-* 🔄 Compreender o ciclo de vida de objetos em memória (evitando *memory leaks* com dados estáticos).
+* 🔄 Compreender o ciclo de vida de objetos em memória.
 * 🕹️ Aprender o funcionamento interno de um Game Loop (`create`, `update`, `draw`).
 * 📁 Desenvolver um projeto organizado, modular e com código limpo visando boas práticas de engenharia de software.
 
