@@ -62,11 +62,11 @@ public class HoraDoRush extends EngineFrame {
             gerarProdutos( 10 );
             listaCompras = new ListaCompras( 5 );
         } else if( dificuldade == 2 ) {
-            tempoRestante = 1.5*60; // 1.5 minutos
+            tempoRestante = 0.85*60; // 0.85 minutos
             gerarProdutos( 15 );
             listaCompras = new ListaCompras( 7 );
         } else if( dificuldade == 3 ) {
-            tempoRestante = 0.75*60; // 0.45 minutos
+            tempoRestante = 0.75*60; // 0.75 minutos
             gerarProdutos( 20 );
             listaCompras = new ListaCompras( 9 );
         }
@@ -192,12 +192,10 @@ public class HoraDoRush extends EngineFrame {
         drawImage( gameBackground, source, dest );
         
         // Desenhar a prateleira
-        try{
+        if( prateleiraHUD != null && listaHUD != null && carrinhoHUD != null ) {
             prateleiraHUD.desenhar( this );
             listaHUD.desenhar( this );
             carrinhoHUD.desenhar( this );
-        } catch ( NullPointerException exc ) {
-            // apenas para retirar erro no console
         }
         
         // Desenhar o tempo na tela
@@ -213,20 +211,16 @@ public class HoraDoRush extends EngineFrame {
             p.desenhar( this );
         }
         
-        // Texto de Vitória
-        String textoWin = "Compra Concluida com Sucesso!"; 
-        
-        // Texto de Derrota
+        // Textos da tela final
+        String textoWin = "Compra Concluida com Sucesso!";
         String textoLossTime = "O tempo acabou, voce perdeu!"; 
-        
-        // Texto do Menu
         String textoMenu = "Pressione ENTER para voltar ao menu";
         
         // Desenha as telas de win e loss
         if(estadoAtual == EstadoJogo.TELA_WIN) {
             
             fillRectangle( 0, 0, getScreenWidth(), getScreenHeight(), new java.awt.Color(0, 0, 0, 240) );
-            drawText( textoWin, getScreenWidth() - 1000, getScreenHeight() - 450, 30, WHITE );
+            drawText( textoWin, getScreenWidth() - 1000, getScreenHeight() - 450, 30, GREEN );
             drawText( textoMenu, getScreenWidth() - 1000, getScreenHeight() - 400, 25, WHITE );
             
             // Logo
@@ -241,7 +235,7 @@ public class HoraDoRush extends EngineFrame {
         } else if (estadoAtual == EstadoJogo.TELA_LOSS) {
             
             fillRectangle( 0, 0, getScreenWidth(), getScreenHeight(), new java.awt.Color(0, 0, 0, 240) );
-            drawText( textoLossTime, getScreenWidth() - 1000, getScreenHeight() - 500, 30, WHITE );
+            drawText( textoLossTime, getScreenWidth() - 1000, getScreenHeight() - 500, 30, RED );
             drawText( textoMenu, getScreenWidth() - 1000, getScreenHeight() - 450, 25, WHITE );
             
             // Logo

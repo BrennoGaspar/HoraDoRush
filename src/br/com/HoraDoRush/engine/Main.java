@@ -70,19 +70,21 @@ public class Main extends EngineFrame {
 
     @Override
     public void draw() {
+                
+        if( mMenu != null ) {
+            // Fundo
+            Rectangle sourceI = new Rectangle( 0, 0, mMenu.getWidth(), mMenu.getHeight() );
+            Rectangle destI = new Rectangle( 0, 0, getScreenWidth(), getScreenHeight() );
+            drawImage(mMenu, sourceI, destI);
+        }
         
-        // Fundo 
-        Rectangle sourceI = new Rectangle( 0, 0, mMenu.getWidth(), mMenu.getHeight() );
-        Rectangle destI = new Rectangle( 0, 0, getScreenWidth(), getScreenHeight() );
-        drawImage(mMenu, sourceI, destI);
-        
-        // Logo
-        Rectangle source = new Rectangle( 0, 0, sprite.getWidth(), sprite.getHeight() );
-        Rectangle dest = new Rectangle( posX, posY, largura, altura );
-        drawImage(sprite, source, dest);
-        
+        if( sprite != null ) {
+            // Logo
+            Rectangle source = new Rectangle( 0, 0, sprite.getWidth(), sprite.getHeight() );
+            Rectangle dest = new Rectangle( posX, posY, largura, altura );
+            drawImage(sprite, source, dest);
+        }
 
-        
         String subtitulo = "Selecione a Dificuldade:";
         drawText( subtitulo, getScreenWidth() / 2 - 170, getScreenHeight() / 2, 25, WHITE );
 
@@ -94,7 +96,7 @@ public class Main extends EngineFrame {
         desenharBotao( "1. Fácil", btnX, btnYFacil, btnLargura, btnAltura, mx, my, new Color(46, 204, 113) );
         desenharBotao( "2. Médio", btnX, btnYMedio, btnLargura, btnAltura, mx, my, new Color(241, 196, 15) );
         desenharBotao( "3. Difícil", btnX, btnYDificil, btnLargura, btnAltura, mx, my, new Color(231, 76, 60) );
-        
+
         // Nome dos autores do projeto
         drawText( "Desenvolvido por Brenno Gaspar & Victor Altran", 20, getScreenHeight() - 40, 16, Color.LIGHT_GRAY );
         
