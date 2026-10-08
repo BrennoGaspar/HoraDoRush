@@ -1,6 +1,9 @@
 package br.com.HoraDoRush.engine;
 
 import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
+import br.com.davidbuzatto.jsge.geom.Rectangle;
+import br.com.davidbuzatto.jsge.image.Image;
+import br.com.davidbuzatto.jsge.image.ImageUtils;
 import java.awt.Color;
 
 /**
@@ -10,6 +13,13 @@ public class Main extends EngineFrame {
 
     // declaração de variáveis
     private HoraDoRush jogo;
+    private Image sprite = ImageUtils.loadImage( "src/br/com/HoraDoRush/model/assets/logo.png" );;
+    private Image mMenu = ImageUtils.loadImage( "src/br/com/HoraDoRush/model/assets/mainMenuBackgorund.png" );;
+    
+    private int posX = getScreenWidth() / 2 - 315 ;
+    private int posY = getScreenHeight() / 2 - 450 ;
+    private int largura = 612;
+    private int altura = 408;
     
     // Configurações de layout dos botões
     private int btnLargura = 250;
@@ -17,8 +27,8 @@ public class Main extends EngineFrame {
     private int espacamento = 30;
     
     // Calcula a posição dos botões
-    private int btnX = getScreenWidth() / 2 - (btnLargura / 2);
-    private int btnYFacil = getScreenHeight() / 2 - 20;
+    private int btnX = getScreenWidth() / 2 - (btnLargura / 2) ;
+    private int btnYFacil = getScreenHeight() / 2 - 20 + 100;
     private int btnYMedio = btnYFacil + btnAltura + espacamento;
     private int btnYDificil = btnYMedio + btnAltura + espacamento;
 
@@ -61,15 +71,20 @@ public class Main extends EngineFrame {
     @Override
     public void draw() {
         
-        // Limpa o fundo
-        clearBackground( Color.WHITE );
-
-        // Títulos
-        String titulo = "HORA DO RUSH";
-        drawText( titulo, getScreenWidth() / 2 - 190, getScreenHeight() / 2 - 200, 60, BLACK );
+        // Fundo 
+        Rectangle sourceI = new Rectangle( 0, 0, mMenu.getWidth(), mMenu.getHeight() );
+        Rectangle destI = new Rectangle( 0, 0, getScreenWidth(), getScreenHeight() );
+        drawImage(mMenu, sourceI, destI);
         
-        String subtitulo = "Selecione a Dificuldade";
-        drawText( subtitulo, getScreenWidth() / 2 - 110, getScreenHeight() / 2 - 100, 20, DARKGRAY );
+        // Logo
+        Rectangle source = new Rectangle( 0, 0, sprite.getWidth(), sprite.getHeight() );
+        Rectangle dest = new Rectangle( posX, posY, largura, altura );
+        drawImage(sprite, source, dest);
+        
+
+        
+        String subtitulo = "Selecione a Dificuldade:";
+        drawText( subtitulo, getScreenWidth() / 2 - 170, getScreenHeight() / 2, 25, WHITE );
 
         // Posição atual do mouse para o efeito Hover
         int mx = getMouseX();
@@ -81,7 +96,7 @@ public class Main extends EngineFrame {
         desenharBotao( "3. Difícil", btnX, btnYDificil, btnLargura, btnAltura, mx, my, new Color(231, 76, 60) );
         
         // Nome dos autores do projeto
-        drawText( "Desenvolvido por Brenno Gaspar & Victor Altran", 20, getScreenHeight() - 40, 16, GRAY );
+        drawText( "Desenvolvido por Brenno Gaspar & Victor Altran", 20, getScreenHeight() - 40, 16, Color.LIGHT_GRAY );
         
     }
 

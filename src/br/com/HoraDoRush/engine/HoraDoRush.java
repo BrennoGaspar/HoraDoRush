@@ -11,9 +11,7 @@ import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
 import br.com.davidbuzatto.jsge.geom.Rectangle;
 import br.com.davidbuzatto.jsge.image.Image;
 import br.com.davidbuzatto.jsge.image.ImageUtils;
-import java.awt.Font;
-import java.awt.GraphicsEnvironment;
-import java.io.File;
+import java.awt.Color;
 
 /**
  * @author Brenno Gaspar Pinto & Victor Altran Soares
@@ -38,11 +36,22 @@ public class HoraDoRush extends EngineFrame {
     private Produtos[] produtosArray;
     private DragAndDrop dragAndDrop;
     private Image gameBackground;
+    private Image logo;
+    
+    // Dimensões Botões
+    private int btnLargura = 250;
+    private int btnAltura = 60;
+    
+    // Dimensões da Logo
+    private int logoLargura = 612 ;
+    private int logoAltura = 408 ; 
+    private int posX = getScreenWidth() / 2 - 315 ;
+    private int posY = getScreenHeight() / 2 - 450 ;
     
     // Construtor padrão do jogo
     public HoraDoRush( int dificuldade ) {
         
-        // cria a janela do jogo ou simulação
+        // Cria a janela do jogo ou simulação
         super( 1500, 950, obterTitulo(dificuldade), 180, true );
         
         // Limpa a memória vinculada à partida anterior (static att)
@@ -57,7 +66,7 @@ public class HoraDoRush extends EngineFrame {
             gerarProdutos( 15 );
             listaCompras = new ListaCompras( 7 );
         } else if( dificuldade == 3 ) {
-            tempoRestante = 3*60; // 3 minutos
+            tempoRestante = 0.5*60; // 3 minutos
             // DEBUG -> tempoRestante = 1*3600; // 1 minuto
             gerarProdutos( 20 );
             listaCompras = new ListaCompras( 9 );
@@ -96,19 +105,11 @@ public class HoraDoRush extends EngineFrame {
         dragAndDrop = new DragAndDrop();
         carrinho = new Carrinho();
         produtosArray = new Produtos[0];
-        // import da imagem do fundo
+        // Import da imagem do fundo
         gameBackground = ImageUtils.loadImage( "src/br/com/HoraDoRush/model/assets/backgroundPastelv2.png" );
-        
-        try {
-            // Load the font file
-            Font customFont = Font.createFont( Font.TRUETYPE_FONT, new File("src/br/com/HoraDoRush/model/assets/InterBold.ttf") );
-            // Register it globally
-            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            ge.registerFont( customFont );
-        } catch ( Exception e ) {
-            e.printStackTrace();
-        }
-        
+        // Import da Logo
+        logo = ImageUtils.loadImage( "src/br/com/HoraDoRush/model/assets/logo.png" );
+           
     }
 
     /**
@@ -157,7 +158,7 @@ public class HoraDoRush extends EngineFrame {
             // apenas para não printar nada no terminal
         }
         
-        // Lógica de retorno pro menu 
+        // Lógica de retorno para o menu com o teclado (ENTER)
         if( estadoAtual == EstadoJogo.TELA_LOSS || estadoAtual == EstadoJogo.TELA_WIN ){
             if( isKeyPressed(KEY_ENTER) ){
                 new Main();
@@ -165,6 +166,19 @@ public class HoraDoRush extends EngineFrame {
             }
         }
         
+       // Lógica de retorno para o menu com o botão 
+        if( estadoAtual == EstadoJogo.TELA_LOSS || estadoAtual == EstadoJogo.TELA_WIN ){
+            
+            // Calcula a posição dinamicamente
+            int atualX = getScreenWidth() / 2 - (btnLargura / 2);
+            int atualY = getScreenHeight() / 2 + 150;
+            
+            // Verifica o mouse e o clique em tempo real
+            if ( isMouseOver(getMouseX(), getMouseY(), atualX, atualY, btnLargura, btnAltura) && isMouseButtonPressed(MOUSE_BUTTON_LEFT) ) {
+                new Main();
+                this.dispose(); // NOTA: use dispose() no lugar de setVisible(false) para liberar a memória RAM
+            }
+        }
     }
 
     /**
@@ -192,7 +206,9 @@ public class HoraDoRush extends EngineFrame {
         int minutos = tempoTotalSegundos / 60;
         int segundos = tempoTotalSegundos % 60;
         String tempoLabel = String.format( "Tempo restante: %02d:%02d", minutos, segundos );
-        drawText( tempoLabel, getScreenWidth()/2 - 200, getScreenHeight() - 60 , 30, RED );
+        
+        fillRectangle( getScreenWidth()/2 - 205 ,  getScreenHeight() - 75 , 390, 50, new java.awt.Color(0, 0, 0, 100) );  
+        drawText( tempoLabel, getScreenWidth()/2 - 200, getScreenHeight() - 60 , 30, WHITE );
        
         for( Produtos p : produtosArray ) {
             p.desenhar( this );
@@ -209,15 +225,55 @@ public class HoraDoRush extends EngineFrame {
         
         // Desenha as telas de win e loss
         if(estadoAtual == EstadoJogo.TELA_WIN) {
-            fillRectangle( 0, 0, getScreenWidth(), getScreenHeight(), new java.awt.Color(0, 0, 0, 240) );
-            drawText( textoWin, getScreenWidth() - 1000, getScreenHeight() - 500, 30, RED );
-            drawText( textoMenu, getScreenWidth() - 1000, getScreenHeight() - 450, 25, BLUE );
+            
+            fillRectangle( 0, 0, getScreenWidth(), getScreenHeight(), new java.awt.Color(0, 0, 0, 200) );
+            drawText( textoWin, getScreenWidth() - 1000, getScreenHeight() - 450, 30, WHITE );
+            drawText( textoMenu, getScreenWidth() - 1000, getScreenHeight() - 400, 25, WHITE );
+            
+            // Logo
+            Rectangle sourceI = new Rectangle( 0, 0, logo.getWidth(), logo.getHeight() );
+            Rectangle destI = new Rectangle( posX, posY, logoLargura, logoAltura );
+            drawImage(logo, sourceI, destI);
+           
+            int atualPosX = getScreenWidth() / 2 - (btnLargura / 2);
+            int atualPosY = getScreenHeight() / 2 + 150;
+            desenharBotao( "Voltar ao Menu", atualPosX, atualPosY, btnLargura, btnAltura, getMouseX(), getMouseY(), new Color(46, 204, 113) );
+            
         } else if (estadoAtual == EstadoJogo.TELA_LOSS) {
-            fillRectangle( 0, 0, getScreenWidth(), getScreenHeight(), new java.awt.Color(0, 0, 0, 240) );
-            drawText( textoLossTime, getScreenWidth() - 1000, getScreenHeight() - 500, 30, RED );
-            drawText( textoMenu, getScreenWidth() - 1000, getScreenHeight() - 450, 25, BLUE );
-        }            
+            
+            fillRectangle( 0, 0, getScreenWidth(), getScreenHeight(), new java.awt.Color(0, 0, 0, 200) );
+            drawText( textoLossTime, getScreenWidth() - 1000, getScreenHeight() - 500, 30, WHITE );
+            drawText( textoMenu, getScreenWidth() - 1000, getScreenHeight() - 450, 25, WHITE );
+            
+            // Logo
+            Rectangle sourceI = new Rectangle( 0, 0, logo.getWidth(), logo.getHeight() );
+            Rectangle destI = new Rectangle( posX, posY, logoLargura, logoAltura );
+            drawImage(logo, sourceI, destI);
+            
+            int atualPosX = getScreenWidth() / 2 - (btnLargura / 2);
+            int atualPosY = getScreenHeight() / 2 + 150;
+            desenharBotao( "Voltar ao Menu", atualPosX, atualPosY, btnLargura, btnAltura, getMouseX(), getMouseY(), new Color(46, 204, 113) );
+        }
     }
+    
+    private void desenharBotao( String texto, int x, int y, int larg, int alt, int mx, int my, Color corBase ) {
+        boolean hover = isMouseOver( mx, my, x, y, larg, alt );
+        
+        Color corAtual = hover ? corBase.darker() : corBase;
+        
+        fillRectangle( x, y, larg, alt, corAtual );
+        drawRectangle( x, y, larg, alt, BLACK );
+        
+        int paddingX = ( larg - (texto.length() * 12) ) / 2; 
+        int paddingY = ( alt - 20 ) / 2;
+        
+        drawText( texto, x + paddingX, y + paddingY, 20, WHITE );
+    }
+       
+    private boolean isMouseOver( int mouseX, int mouseY, int x, int y, int largura, int altura ) {
+        return mouseX >= x && mouseX <= (x + largura) && mouseY >= y && mouseY <= (y + altura);
+    }
+    
     
     /**
      * Método para gerar o array com todos os produtos
