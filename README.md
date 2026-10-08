@@ -63,6 +63,6 @@ O projeto foi desenvolvido com foco em:
 * 🕹️ Aprender o funcionamento interno de um Game Loop (`create`, `update`, `draw`).
 * 📁 Desenvolver um projeto organizado, modular e com código limpo visando boas práticas de engenharia de software.
 
-* 👨‍💻 Autores
-*   - Brenno Gaspar Pinto
-    - Victor Altran Soares 
+## 👨‍💻 Autores
+*  Brenno Gaspar Pinto
+*  Victor Altran Soares 
