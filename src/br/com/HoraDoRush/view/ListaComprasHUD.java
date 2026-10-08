@@ -32,9 +32,21 @@ public class ListaComprasHUD {
         engine.drawText("Fila de compras", larguraTela - 300, alturaTela / 2 - 380, 20, Color.BLACK );
         
         int espacamento = 0;
-        for( Produtos p : listaCompras.getFila() ) {
+        for( Produtos p : listaCompras.getCopia() ) {
+            
             String nomeProduto = p.getNome();
-            engine.drawText( nomeProduto, larguraTela - 300, alturaTela / 2 - 330 + (30*espacamento++), 20, Color.BLACK );
+            engine.drawText( String.format( "• %s", nomeProduto ), larguraTela - 300, alturaTela / 2 - 330 + (30*espacamento), 20, Color.BLACK );
+            
+            if( p.isEstaCarrinho() ) {
+                int yLinha = alturaTela / 2 - 330 + (30 * espacamento) + 8;
+                int xLinhaInicial = larguraTela - 280;
+                int xLinhaFinal = xLinhaInicial + (nomeProduto.length() * 11);
+                
+                engine.drawLine( xLinhaInicial, yLinha, xLinhaFinal, yLinha, Color.BLACK );
+            }
+            
+            espacamento++;
+            
         }
         
     }
